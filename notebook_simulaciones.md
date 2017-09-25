@@ -1,9 +1,7 @@
 # Teoría de probabilidad
 Martín Andrés Macías Quintero  
 
-# _Ejercicios_
-
-## Ejercicio 12.7 
+# Ejercicio 12.7 
 
 Sean $(X, Y)$ _uniformes sobre la bola unitaria_, es decir,
 
@@ -18,7 +16,7 @@ $$
 
 Encuentre la distribución de $R=\sqrt{X^2+Y^2}$. (_Pista_: Introduzca una variable aleatoria auxiliar definida como $S=Arctan\left(\frac{Y}{X}\right)$.) [Respuesta: $f_R(r)=2r\mathbb{1}_{0,1}(r)$.]
 
-### *Demostración:*
+## *Demostración:*
 
 Se introduce la variable aleatoria auxiliar $S=tan^{-1} \left(\frac{Y}{X}\right)$. Sea $g(x,y)=\left( \sqrt{x^2+y^2}, \tan^{-1} \left(\frac{y}{x}\right) \right)$. Si se escribe $r=\sqrt{x^2+y^2}$; $0\leq r\leq 1$ y $\tan^{-1} \left(\frac{y}{x}\right)$, las inversas serían $g_1^{-1}(r,\theta)=(r\cos\theta, r\sin\theta)$ y $g_2^{-1}=(-r\cos\theta, -r\sin\theta)$ puesto que $g$ no es inyectiva. Sus correspondientes jacobianos serían:
 
@@ -59,20 +57,20 @@ La densidad marginal sería:
 f_R(r)=\int_{-\frac{\pi}{2}}^{\frac{\pi}{2}}\frac{2r\mathbb{1}_{(0,1)}(r)}{\pi}d\theta=2r\mathbb{1}_{(0,1)}(r)
 \end{equation}
 
-### *Simulación:*
+## *Simulación:*
 
 Sean $X$ y $Y$ dos variables aleatorias con distribución $U(0,1)$
 
 
 ```r
-set.seed(12345)
-X<-runif(1000)
-Y<-runif(1000)
+set.seed(163053)
+X<-runif(10000)
+Y<-runif(10000)
 
 R<-sqrt(X^2+Y^2)
 R<-R[R<=1]
 
-hist(R,freq = F)
+hist(R,freq = F, main = "Histograma de R", xlab="R", ylab = "Densidad")
 curve(2*x,from = 0,to = 1,col=2,add=T)
 ```
 
@@ -81,7 +79,7 @@ curve(2*x,from = 0,to = 1,col=2,add=T)
 Gracias a la simulación, es posible que los datos de $R$ simulados a partir de dos variables uniformes, se ajustan a la distribución teórica.
 
 
-## Ejercicio 12.11
+# Ejercicio 12.11
 
 Sean $(X, Y)$ normales independientes, ambas con media $\mu=0$ y varianza $\sigma^2$. Sea
 
@@ -90,7 +88,7 @@ Z = \sqrt{X^2 + Y^2} \quad \text{y}\quad W=Arctan\left(\frac{Y}{X}\right), \quad
 $$
 Demuestre que $Z$ tiene distribución Rayleigh, que $W$ es uniforme sobre $\left(-\frac{\pi}{2},\frac{\pi}{2} \right)$ y que $Z$ y $W$ son independientes.
 
-### *Demostración:*
+## *Demostración:*
 Sea $g(x,y)=\left(\sqrt{x^2+y^2}\right), \arctan\left(\frac{x}{y}\right)$
 
 En este caso las inversas serían $g_1^{-1}(z,w)=(z\sin w,z\cos w)$ y $g_2^{-1}(z,w)=(z\sin w,-z\cos w)$ puesto que g no es inyectiva. Sus correspondientes jacobianos serían:
@@ -127,7 +125,7 @@ f_{Z,W}(z,w) \quad &= \quad \left( \frac{1}{2\pi\sigma^2}e^{\frac{-z^2}{2\sigma}
 \end{split}
 \end{equation}
 
-### *Simulación:*
+## *Simulación:*
 
 Sean $X$ y $Y$ dos variables aleatorias independientes con distribución normal con media $\mu$0 y varianza $\sigma^2=4$
 
@@ -135,10 +133,10 @@ Sean $X$ y $Y$ dos variables aleatorias independientes con distribución normal 
 ```r
 library(VGAM)
 
-set.seed(12345)
+set.seed(163053)
 
-X<-rnorm(1000,0,2)
-Y<-rnorm(1000,0,2)
+X<-rnorm(10000,0,2)
+Y<-rnorm(10000,0,2)
 Z<-sqrt(X^2+Y^2)
 ```
 
@@ -147,7 +145,7 @@ A continuación se simulan datos de una distribución Rayleigh con $\sigma=2$:
 
 
 ```r
-V<-rrayleigh(1000,2)
+V<-rrayleigh(10000,2)
 ```
 
 Al comparar los dos histogramas de los datos simulados a partir de $X$ y $Y$ con los de $Z$:
@@ -155,8 +153,8 @@ Al comparar los dos histogramas de los datos simulados a partir de $X$ y $Y$ con
 
 ```r
 par(mfrow=c(1,2))
-hist(Z,freq = F,breaks = 10)
-hist(V,freq = F,breaks = 10)
+hist(Z,freq = F,breaks = 10, main = "Histograma de Z", xlab="Z", ylab = "Densidad")
+hist(V,freq = F,breaks = 10, main = "Histograma de V", xlab="V", ylab = "Densidad")
 ```
 
 ![](notebook_simulaciones_files/figure-html/unnamed-chunk-4-1.png)<!-- -->
@@ -170,7 +168,7 @@ rayleigh<-function(x,y){
 }
 
 par(mfrow=c(1,1))
-hist(Z,freq = F,breaks = 10,ylim = c(0,0.35))
+hist(Z,freq = F,breaks = 10,ylim = c(0,0.35), main = "Histograma de Z", xlab="Z", ylab = "Densidad")
 curve(rayleigh(x,2),from = 0,to = 8,add = T,col=2)
 ```
 
@@ -183,10 +181,10 @@ Ahora, sean $X$ y $Y$ dos variables normales independientes con media $\mu=0$ y 
 
 
 ```r
-set.seed(12345)
+set.seed(163053)
 
-X<-rnorm(1000,0,2)
-Y<-rnorm(1000,0,2)
+X<-rnorm(10000,0,2)
+Y<-rnorm(10000,0,2)
 
 U<-X/Y
 W<-atan(U)
@@ -197,7 +195,7 @@ Al simular datos $Z$ de una distribución uniforme $U(-\pi/2,\pi/2)$, se tiene:.
 
 
 ```r
-Z<-runif(1000,-pi/2,pi/2)
+Z<-runif(10000,-pi/2,pi/2)
 ```
 
 Al comparar los dos histogramas de los datos simulados a partir $X$ y $Y$ y los de $Z$:
@@ -205,8 +203,8 @@ Al comparar los dos histogramas de los datos simulados a partir $X$ y $Y$ y los 
 
 ```r
 par(mfrow=c(1,2))
-hist(W,freq = FALSE)
-hist(Z,freq = FALSE)
+hist(W,freq = FALSE, main = "Histograma de W", xlab="W", ylab = "Densidad")
+hist(Z,freq = FALSE, main = "Histograma de Z", xlab="Z", ylab = "Densidad")
 ```
 
 ![](notebook_simulaciones_files/figure-html/unnamed-chunk-8-1.png)<!-- -->
@@ -223,7 +221,7 @@ unifor<-function(x,y,z){
 unif<-Vectorize(unifor)
 
 par(mfrow=c(1,1))
-hist(W,freq = FALSE)
+hist(W,freq = FALSE, main = "Histograma de W", xlab="W", ylab = "Densidad")
 curve(unif(x,-pi/2,pi/2),add = T,col=2)
 ```
 
@@ -231,13 +229,17 @@ curve(unif(x,-pi/2,pi/2),add = T,col=2)
 
 Se confirma que los datos de la distribución uniforme entre $-\pi/2$ y $\pi/2$ simulados a partir de dos normales coninciden con la función de densidad de la una distribución uniforme.
 
-## Ejercicio 12.15 
+# Ejercicio 12.15 
 
 (_Simulación de variables aleatorias normales_) Sean $U_1$, $U_2$ dos variables aleatorias uniformes independientes sobre $(0,1)$. Sean $\theta=2\pi U_1$ y $S=-\ln(U_2)$.
 
+(_Pista:_ Para la parte _(a)_ recuerde que una exponencial es un caso especial de una distribución Gamma: de hecho, esto es $\chi_2^2$. Para la parte (b) invierta el procedimiento del esjericio 12.11).
+
+_Observación:_ El ejercicio 12.15 es conocido como el método Box-Muller para simular variables aleatorias normales.
+
 a. Demuestre que $S$ tiene distribución exponencial, y que $R =\sqrt{2S}$ tiene distribución Rayleigh.
 
-### *Demostración:*
+## *Demostración:*
 
 \begin{equation}
 S=-\ln(V)\\
@@ -268,9 +270,140 @@ R^2 = -2\ln(V)\\
 V=e^{-\frac{R^2}{2}}
 \end{equation}
 
+Así,
+$$v=h^{-1}(r)=e^{-\frac{r^2}{2}}$$
+
+De esta forma,
+$$
+\frac{dv}{dr}=\frac{dh^{-1}(r)}{dr}=-e^{-\frac{r^2}{2}} \cdot r=r \cdot e^{-\frac{r^2}{2}}
+$$
+
+Entonces,
+$$
+f_R(r)=f_V(v)\cdot \left| \frac{dv}{dr}  \right|=r \cdot e^{-\frac{r^2}{2}}
+$$
+Que claramente se refiere a una variable aleatoria $R\sim Rayleigh(1)$ 
+
+## *Simulación:*
+
+Sea $U_2$ una variable aleatoria con distribución uniforme en $(0,1)$
+
+
+```r
+set.seed(163053)
+U2<-runif(10000)
+S<--log(U2)
+R<-sqrt(2*S)
+
+hist(S,freq = FALSE, main = "Histograma de S", xlab="S", ylab = "Densidad")
+curve(dexp(x,1),add=T,col=2)
+```
+
+![](notebook_simulaciones_files/figure-html/unnamed-chunk-10-1.png)<!-- -->
+
+Se observa que los datos de $S$ simulados a partir de una distribución uniforme, se ajusta a una distribución exponencial con parámetro 1. 
+
+Por otra parte, los datos simulados de $R$
+
+
+```r
+hist(R,freq = FALSE, main = "Histograma de R", xlab="R", ylab = "Densidad")
+curve(drayleigh(x,scale = 1),add=T,col=2)
+```
+
+![](notebook_simulaciones_files/figure-html/unnamed-chunk-11-1.png)<!-- -->
+
+Se observa que los datos de $R$ simulados a partir de una distribución exponencial de parámetro 1, se ajusta a una distribución Rayleigh con parámetro 1.\\
 
 b. Sean $X=R \cos\theta$, $Y=R\sin\theta$. Demuestre que $X$ y $Y$ son normales independientes.
 
-(_Pista:_ Para la parte _(a)_ recuerde que una exponencial es un caso especial de una distribución Gamma: de hecho, esto es $\chi_2^2$. Para la parte (b) invierta el procedimiento del esjericio 12.11).
+## *Demostración:*
 
-_Observación:_ El ejercicio 12.15 es conocido como el método Box-Muller para simular variables aleatorias normales.
+Se sabe que $X=\sqrt{-2\ln(V)}\cos(2\pi U)$ y $Y=\sqrt{-2\ln(V)}\sin(2\pi U)$, así, $g(x,y)=(\sqrt{-2\ln(V)}\cos(2\pi U),\sqrt{-2\ln(V)}\sin(2\pi U))$
+
+A continuación se calculan la inversa de $g$:
+
+\begin{equation}
+\frac{Y}{X}=\frac{\sqrt{-2\ln(V)}\cos(2\pi U)}{\sqrt{-2\ln(V)}\sin(2\pi U)}
+=\tan(2 \pi U) \Rightarrow U=\frac{1}{2 \pi}\tan^{-1}\left( \frac{Y}{X}  \right)
+\end{equation}
+
+Por otra parte,
+
+\begin{equation}
+\begin{split}
+X^2+Y^2&=(\sqrt{-2\ln(V)}\cos(2\pi U)^2+(\sqrt{-2\ln(V)}\sin(2\pi U)^2
+&= (-2\ln(V)\cos^2(2\pi U))+(-2\ln(V)\sin^2(2\pi U)
+&= -2\ln(V)(\cos^2(2\pi U)+\sin^2(2\pi U)
+&= -2\ln(V)
+\end{split}
+\end{equation}
+
+Así, 
+
+\begin{equation}
+V = e^{-\frac{X^2+Y^2}{2}}
+\end{equation}
+
+De esta forma, $g^{-1}(x,y)= \left(\frac{1}{2 \pi}\tan^{-1}\left( \frac{Y}{X}  \right),e^{-\frac{X^2+Y^2}{2}}\right)$
+
+El cálculo del jacobiano se presenta a continuación:
+
+\begin{equation}
+\begin{split}
+\left| J_{g^{-1}}  \right|
+&=\left| \det 
+\begin{bmatrix} 
+\frac{y}{2\pi(x^2+y^2)} &  -\frac{x}{2\pi(x^2+y^2)} \\
+-x\cdot e^{-\frac{x^2+y^2}{2}} &  -y\cdot e^{-\frac{x^2+y^2}{2}} \\
+\end{bmatrix}  \right|\\
+&=
+\left|
+\frac{-y^2\cdot e^{-\frac{x^2+y^2}{2}}}{2\pi(x^2+y^2)}-
+\frac{-x^2\cdot e^{-\frac{x^2+y^2}{2}}}{2\pi(x^2+y^2)}
+\right|\\
+&=
+\left|
+\frac{-y^2\cdot e^{-\frac{x^2+y^2}{2}}-x^2\cdot e^{-\frac{x^2+y^2}{2}}}{2\pi(x^2+y^2)}
+\right|\\
+&=
+\left|
+\frac{-e^{-\frac{x^2+y^2}{2}}(x^2+y^2)}{2\pi(x^2+y^2)}
+\right|\\
+&=
+\frac{1}{2\pi}e^{-\frac{x^2+y^2}{2}}
+\end{split}
+\end{equation}
+
+De esta forma, la densidad conjunta de $X$ y $Y$ es:
+
+\begin{equation}
+f_{X,Y}=\frac{1}{2\pi}e^{-\frac{x^2+y^2}{2}}=\frac{1}{\sqrt{2\pi}}e^{-\frac{x^2}{2}} \cdot \frac{1}{\sqrt{2\pi}}e^{-\frac{y^2}{2}}=f(x)f(y)
+\end{equation}
+
+Lo que demuestra que $X$ y $Y$ se distribuyen normales estándar y además son independientes.
+
+## *Simulación:*
+
+Sea $R$ una variable aleatoria con distribución Rayleigh y $U_1$ una variable aleatoria uniforme $(0,1)$.
+
+
+```r
+set.seed(163053)
+R<-rrayleigh(10000,2)
+U1<-runif(10000)
+Theta<-2*pi*U1
+
+X<-R*cos(Theta)
+Y<-R*sin(Theta)
+
+par(mfrow=c(2,1))
+hist(X,freq = FALSE, main = "Histograma de X", xlab="X", ylab = "Densidad")
+curve(dnorm(x,0,2),add=T,col=2)
+hist(Y,freq = FALSE, main = "Histograma de Y", xlab="Y", ylab = "Densidad")
+curve(dnorm(x,0,2),add=T,col=4)
+```
+
+![](notebook_simulaciones_files/figure-html/unnamed-chunk-12-1.png)<!-- -->
+
+Puede observarse que tanto las variables simuladas de $X$ y $Y$, corresponden a variables normales con media 0 y varianza 4, considerando que la distribución de Rayleigh tiene parámetro 2.
