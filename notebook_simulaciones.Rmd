@@ -2,9 +2,11 @@
 title: "Teoría de probabilidad"
 author: "Martín Andrés Macías Quintero"
 output:
+  pdf_document: 
+    keep_tex: yes
+    latex_engine: xelatex
   html_document:
     keep_md: yes
-  pdf_document: default
 ---
 
 # Ejercicio 12.7 
@@ -121,16 +123,14 @@ De esta forma, se tiene que:
 \begin{equation}
 \begin{split}
 f_{Z,W}(z,w) \quad &= \quad \left( \frac{1}{2\pi\sigma^2}e^{\frac{-z^2}{2\sigma}}z + \frac{1}{2\pi\sigma^2}e^{\frac{-z^2}{2\sigma}}z \right) \mathbb{1}_{\left(-\frac{\pi}{2},\frac{\pi}{2}\right)}(w) \mathbb{1}_{(0,\infty)}(z)\\
-
 &=\quad \frac{1}{\pi}\mathbb{1}_{\left(-\frac{\pi}{2},\frac{\pi}{2}\right)}(w)
 \cdot\frac{z}{\sigma^2}e^{\frac{-z^2}{2\sigma}} \mathbb{1}_{(0,\infty)}(z)
-\renewcommand{\qedsymbol}{\rule{0.7em}{0.7em}}
 \end{split}
 \end{equation}
 
 ## *Simulación:*
 
-Sean $X$ y $Y$ dos variables aleatorias independientes con distribución normal con media $\mu$0 y varianza $\sigma^2=4$
+Sean $X$ y $Y$ dos variables aleatorias independientes con distribución normal con media $\mu=0$ y varianza $\sigma^2=4$
 
 ```{r echo=TRUE, message=FALSE}
 library(VGAM)
@@ -317,9 +317,9 @@ Por otra parte,
 
 \begin{equation}
 \begin{split}
-X^2+Y^2&=(\sqrt{-2\ln(V)}\cos(2\pi U)^2+(\sqrt{-2\ln(V)}\sin(2\pi U)^2
-&= (-2\ln(V)\cos^2(2\pi U))+(-2\ln(V)\sin^2(2\pi U)
-&= -2\ln(V)(\cos^2(2\pi U)+\sin^2(2\pi U)
+X^2+Y^2&=(\sqrt{-2\ln(V)}\cos(2\pi U)^2+(\sqrt{-2\ln(V)}\sin(2\pi U)^2\\
+&= (-2\ln(V)\cos^2(2\pi U))+(-2\ln(V)\sin^2(2\pi U)\\
+&= -2\ln(V)(\cos^2(2\pi U)+\sin^2(2\pi U)\\
 &= -2\ln(V)
 \end{split}
 \end{equation}

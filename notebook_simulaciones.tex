@@ -1,0 +1,603 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdftitle={Teoría de probabilidad},
+            pdfauthor={Martín Andrés Macías Quintero},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\newcommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+  \title{Teoría de probabilidad}
+  \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+  \author{Martín Andrés Macías Quintero}
+  \preauthor{\centering\large\emph}
+  \postauthor{\par}
+  \date{}
+  \predate{}\postdate{}
+
+
+\begin{document}
+\maketitle
+
+\section{Ejercicio 12.7}\label{ejercicio-12.7}
+
+Sean \((X, Y)\) \emph{uniformes sobre la bola unitaria}, es decir,
+
+\[
+f_{(X, Y)} (x,y) =
+\begin{cases}
+\frac{1}{\pi}\text{ si } x^2+y^2\leq 1\\
+\\
+0 \text{ si } x^2+y^2 > 1
+\end{cases}
+\]
+
+Encuentre la distribución de \(R=\sqrt{X^2+Y^2}\). (\emph{Pista}:
+Introduzca una variable aleatoria auxiliar definida como
+\(S=Arctan\left(\frac{Y}{X}\right)\).) {[}Respuesta:
+\(f_R(r)=2r\mathbb{1}_{0,1}(r)\).{]}
+
+\subsection{\texorpdfstring{\emph{Demostración:}}{Demostración:}}\label{demostracion}
+
+Se introduce la variable aleatoria auxiliar
+\(S=tan^{-1} \left(\frac{Y}{X}\right)\). Sea
+\(g(x,y)=\left( \sqrt{x^2+y^2}, \tan^{-1} \left(\frac{y}{x}\right) \right)\).
+Si se escribe \(r=\sqrt{x^2+y^2}\); \(0\leq r\leq 1\) y
+\(\tan^{-1} \left(\frac{y}{x}\right)\), las inversas serían
+\(g_1^{-1}(r,\theta)=(r\cos\theta, r\sin\theta)\) y
+\(g_2^{-1}=(-r\cos\theta, -r\sin\theta)\) puesto que \(g\) no es
+inyectiva. Sus correspondientes jacobianos serían:
+
+\begin{equation}
+\left| J_{g_1^{-1}}  \right|
+=\left| \det 
+\begin{bmatrix} 
+\cos\theta &  \sin\theta \\
+-r\sin\theta &  r\cos\theta \\
+\end{bmatrix}  \right|
+=|r|=r
+\end{equation}
+
+\begin{equation}
+\left| J_{g_2^{-1}}  \right|
+=\left| \det 
+\begin{bmatrix} 
+-\cos\theta &  -\sin\theta \\
+r\sin\theta &  -r\cos\theta \\
+\end{bmatrix}  \right|
+=|r|=r
+\end{equation}
+
+De esta forma, se tiene que:
+
+\begin{equation}
+\begin{split}
+f_{Z,W}(z,w)&=r\{ f_{X,Y}(r\cos\theta,r\sin\theta) + f_{X,Y}(-r\cos\theta,-r\sin\theta)  \}
+\mathbb{1}_{(0,1)}(r)\mathbb{1}_{\left(\frac{-\pi}{2},\frac{\pi}{2}\right)}(\theta)\\
+&=r\mathbb{1}_{(0,1)}(r)\left(\frac{1}{\pi}+\frac{1}{\pi}\right)\mathbb{1}_{\left(\frac{-\pi}{2},\frac{\pi}{2}\right)}(\theta)\\
+&=\frac{2r\mathbb{1}_{(0,1)}(r)\mathbb{1}_{\left(\frac{-\pi}{2},\frac{\pi}{2}\right)}(\theta)}{\pi}
+\end{split}
+\end{equation}
+
+La densidad marginal sería:
+
+\begin{equation}
+f_R(r)=\int_{-\frac{\pi}{2}}^{\frac{\pi}{2}}\frac{2r\mathbb{1}_{(0,1)}(r)}{\pi}d\theta=2r\mathbb{1}_{(0,1)}(r)
+\end{equation}
+
+\subsection{\texorpdfstring{\emph{Simulación:}}{Simulación:}}\label{simulacion}
+
+Sean \(X\) y \(Y\) dos variables aleatorias con distribución \(U(0,1)\)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{163053}\NormalTok{)}
+\NormalTok{X<-}\KeywordTok{runif}\NormalTok{(}\DecValTok{10000}\NormalTok{)}
+\NormalTok{Y<-}\KeywordTok{runif}\NormalTok{(}\DecValTok{10000}\NormalTok{)}
+
+\NormalTok{R<-}\KeywordTok{sqrt}\NormalTok{(X}\OperatorTok{^}\DecValTok{2}\OperatorTok{+}\NormalTok{Y}\OperatorTok{^}\DecValTok{2}\NormalTok{)}
+\NormalTok{R<-R[R}\OperatorTok{<=}\DecValTok{1}\NormalTok{]}
+
+\KeywordTok{hist}\NormalTok{(R,}\DataTypeTok{freq =}\NormalTok{ F, }\DataTypeTok{main =} \StringTok{"Histograma de R"}\NormalTok{, }\DataTypeTok{xlab=}\StringTok{"R"}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{"Densidad"}\NormalTok{)}
+\KeywordTok{curve}\NormalTok{(}\DecValTok{2}\OperatorTok{*}\NormalTok{x,}\DataTypeTok{from =} \DecValTok{0}\NormalTok{,}\DataTypeTok{to =} \DecValTok{1}\NormalTok{,}\DataTypeTok{col=}\DecValTok{2}\NormalTok{,}\DataTypeTok{add=}\NormalTok{T)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{notebook_simulaciones_files/figure-latex/unnamed-chunk-1-1.pdf}
+
+Gracias a la simulación, es posible que los datos de \(R\) simulados a
+partir de dos variables uniformes, se ajustan a la distribución teórica.
+
+\section{Ejercicio 12.11}\label{ejercicio-12.11}
+
+Sean \((X, Y)\) normales independientes, ambas con media \(\mu=0\) y
+varianza \(\sigma^2\). Sea
+
+\[
+Z = \sqrt{X^2 + Y^2} \quad \text{y}\quad W=Arctan\left(\frac{Y}{X}\right), \quad\quad\quad-\frac{\pi}{2}<W\leq\frac{\pi}{2}.
+\] Demuestre que \(Z\) tiene distribución Rayleigh, que \(W\) es
+uniforme sobre \(\left(-\frac{\pi}{2},\frac{\pi}{2} \right)\) y que
+\(Z\) y \(W\) son independientes.
+
+\subsection{\texorpdfstring{\emph{Demostración:}}{Demostración:}}\label{demostracion-1}
+
+Sea
+\(g(x,y)=\left(\sqrt{x^2+y^2}\right), \arctan\left(\frac{x}{y}\right)\)
+
+En este caso las inversas serían \(g_1^{-1}(z,w)=(z\sin w,z\cos w)\) y
+\(g_2^{-1}(z,w)=(z\sin w,-z\cos w)\) puesto que g no es inyectiva. Sus
+correspondientes jacobianos serían:
+
+\begin{equation}
+\left| J_{g_1^{-1}}  \right|
+=\left| \det 
+\begin{bmatrix} 
+\sin w &  z\cos w \\
+\cos w &  -z\sin w \\
+\end{bmatrix}  \right|
+=|z|=z
+\end{equation}
+
+\begin{equation}
+\left| J_{g_2^{-1}}  \right|
+=\left| \det 
+\begin{bmatrix} 
+\sin w &  z\cos w \\
+-\cos w &  z\sin w \\
+\end{bmatrix}  \right|
+=|z|=z
+\end{equation}
+
+De esta forma, se tiene que:
+
+\begin{equation}
+\begin{split}
+f_{Z,W}(z,w) \quad &= \quad \left( \frac{1}{2\pi\sigma^2}e^{\frac{-z^2}{2\sigma}}z + \frac{1}{2\pi\sigma^2}e^{\frac{-z^2}{2\sigma}}z \right) \mathbb{1}_{\left(-\frac{\pi}{2},\frac{\pi}{2}\right)}(w) \mathbb{1}_{(0,\infty)}(z)\\
+&=\quad \frac{1}{\pi}\mathbb{1}_{\left(-\frac{\pi}{2},\frac{\pi}{2}\right)}(w)
+\cdot\frac{z}{\sigma^2}e^{\frac{-z^2}{2\sigma}} \mathbb{1}_{(0,\infty)}(z)
+\end{split}
+\end{equation}
+
+\subsection{\texorpdfstring{\emph{Simulación:}}{Simulación:}}\label{simulacion-1}
+
+Sean \(X\) y \(Y\) dos variables aleatorias independientes con
+distribución normal con media \(\mu=0\) y varianza \(\sigma^2=4\)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(VGAM)}
+
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{163053}\NormalTok{)}
+
+\NormalTok{X<-}\KeywordTok{rnorm}\NormalTok{(}\DecValTok{10000}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{2}\NormalTok{)}
+\NormalTok{Y<-}\KeywordTok{rnorm}\NormalTok{(}\DecValTok{10000}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{2}\NormalTok{)}
+\NormalTok{Z<-}\KeywordTok{sqrt}\NormalTok{(X}\OperatorTok{^}\DecValTok{2}\OperatorTok{+}\NormalTok{Y}\OperatorTok{^}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+A continuación se simulan datos de una distribución Rayleigh con
+\(\sigma=2\):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{V<-}\KeywordTok{rrayleigh}\NormalTok{(}\DecValTok{10000}\NormalTok{,}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Al comparar los dos histogramas de los datos simulados a partir de \(X\)
+y \(Y\) con los de \(Z\):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow=}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\KeywordTok{hist}\NormalTok{(Z,}\DataTypeTok{freq =}\NormalTok{ F,}\DataTypeTok{breaks =} \DecValTok{10}\NormalTok{, }\DataTypeTok{main =} \StringTok{"Histograma de Z"}\NormalTok{, }\DataTypeTok{xlab=}\StringTok{"Z"}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{"Densidad"}\NormalTok{)}
+\KeywordTok{hist}\NormalTok{(V,}\DataTypeTok{freq =}\NormalTok{ F,}\DataTypeTok{breaks =} \DecValTok{10}\NormalTok{, }\DataTypeTok{main =} \StringTok{"Histograma de V"}\NormalTok{, }\DataTypeTok{xlab=}\StringTok{"V"}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{"Densidad"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{notebook_simulaciones_files/figure-latex/unnamed-chunk-4-1.pdf}
+
+Puede verse que los dos histogramas son similares, es decir, que tanto
+los datos simulados (\(Z\)) a partir de dos normales como los obtenidos
+(\(V\)) son equivalentes. Si se comparan con la función de densidad
+teórica:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{rayleigh<-}\ControlFlowTok{function}\NormalTok{(x,y)\{}
+\NormalTok{  (x}\OperatorTok{/}\NormalTok{y}\OperatorTok{^}\DecValTok{2}\NormalTok{)}\OperatorTok{*}\KeywordTok{exp}\NormalTok{((}\OperatorTok{-}\NormalTok{x}\OperatorTok{^}\DecValTok{2}\NormalTok{)}\OperatorTok{/}\NormalTok{(}\DecValTok{2}\OperatorTok{*}\NormalTok{y}\OperatorTok{^}\DecValTok{2}\NormalTok{))}
+\NormalTok{\}}
+
+\KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow=}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{))}
+\KeywordTok{hist}\NormalTok{(Z,}\DataTypeTok{freq =}\NormalTok{ F,}\DataTypeTok{breaks =} \DecValTok{10}\NormalTok{,}\DataTypeTok{ylim =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\FloatTok{0.35}\NormalTok{), }\DataTypeTok{main =} \StringTok{"Histograma de Z"}\NormalTok{, }\DataTypeTok{xlab=}\StringTok{"Z"}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{"Densidad"}\NormalTok{)}
+\KeywordTok{curve}\NormalTok{(}\KeywordTok{rayleigh}\NormalTok{(x,}\DecValTok{2}\NormalTok{),}\DataTypeTok{from =} \DecValTok{0}\NormalTok{,}\DataTypeTok{to =} \DecValTok{8}\NormalTok{,}\DataTypeTok{add =}\NormalTok{ T,}\DataTypeTok{col=}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{notebook_simulaciones_files/figure-latex/unnamed-chunk-5-1.pdf}
+
+De esta forma, es posible confirmar que los datos de la distribución
+Rayleigh simulados a partir de dos normales coninciden con la función de
+densidad de una distribución Rayleigh.
+
+Ahora, sean \(X\) y \(Y\) dos variables normales independientes con
+media \(\mu=0\) y varianza \(\sigma^2=4\)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{163053}\NormalTok{)}
+
+\NormalTok{X<-}\KeywordTok{rnorm}\NormalTok{(}\DecValTok{10000}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{2}\NormalTok{)}
+\NormalTok{Y<-}\KeywordTok{rnorm}\NormalTok{(}\DecValTok{10000}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{2}\NormalTok{)}
+
+\NormalTok{U<-X}\OperatorTok{/}\NormalTok{Y}
+\NormalTok{W<-}\KeywordTok{atan}\NormalTok{(U)}
+\end{Highlighting}
+\end{Shaded}
+
+Al simular datos \(Z\) de una distribución uniforme \(U(-\pi/2,\pi/2)\),
+se tiene:.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Z<-}\KeywordTok{runif}\NormalTok{(}\DecValTok{10000}\NormalTok{,}\OperatorTok{-}\NormalTok{pi}\OperatorTok{/}\DecValTok{2}\NormalTok{,pi}\OperatorTok{/}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Al comparar los dos histogramas de los datos simulados a partir \(X\) y
+\(Y\) y los de \(Z\):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow=}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\KeywordTok{hist}\NormalTok{(W,}\DataTypeTok{freq =} \OtherTok{FALSE}\NormalTok{, }\DataTypeTok{main =} \StringTok{"Histograma de W"}\NormalTok{, }\DataTypeTok{xlab=}\StringTok{"W"}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{"Densidad"}\NormalTok{)}
+\KeywordTok{hist}\NormalTok{(Z,}\DataTypeTok{freq =} \OtherTok{FALSE}\NormalTok{, }\DataTypeTok{main =} \StringTok{"Histograma de Z"}\NormalTok{, }\DataTypeTok{xlab=}\StringTok{"Z"}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{"Densidad"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{notebook_simulaciones_files/figure-latex/unnamed-chunk-8-1.pdf}
+
+Se observa que los dos histogramas son similares, es decir, que tanto
+los simulados \(W\) a partir de dos normales y los obtenidos \((Z)\) son
+equivalentes. Al comparar con la función de densidad teórica:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{unifor<-}\ControlFlowTok{function}\NormalTok{(x,y,z)\{}
+  \ControlFlowTok{if}\NormalTok{(x}\OperatorTok{>=}\NormalTok{y}\OperatorTok{&}\NormalTok{x}\OperatorTok{<=}\NormalTok{z)\{}\DecValTok{1}\OperatorTok{/}\NormalTok{(z}\OperatorTok{-}\NormalTok{y)\}}
+  \ControlFlowTok{else}\NormalTok{\{}\DecValTok{0}\NormalTok{\}}
+\NormalTok{\}}
+
+\NormalTok{unif<-}\KeywordTok{Vectorize}\NormalTok{(unifor)}
+
+\KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow=}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{))}
+\KeywordTok{hist}\NormalTok{(W,}\DataTypeTok{freq =} \OtherTok{FALSE}\NormalTok{, }\DataTypeTok{main =} \StringTok{"Histograma de W"}\NormalTok{, }\DataTypeTok{xlab=}\StringTok{"W"}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{"Densidad"}\NormalTok{)}
+\KeywordTok{curve}\NormalTok{(}\KeywordTok{unif}\NormalTok{(x,}\OperatorTok{-}\NormalTok{pi}\OperatorTok{/}\DecValTok{2}\NormalTok{,pi}\OperatorTok{/}\DecValTok{2}\NormalTok{),}\DataTypeTok{add =}\NormalTok{ T,}\DataTypeTok{col=}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{notebook_simulaciones_files/figure-latex/unnamed-chunk-9-1.pdf}
+
+Se confirma que los datos de la distribución uniforme entre \(-\pi/2\) y
+\(\pi/2\) simulados a partir de dos normales coninciden con la función
+de densidad de la una distribución uniforme.
+
+\section{Ejercicio 12.15}\label{ejercicio-12.15}
+
+(\emph{Simulación de variables aleatorias normales}) Sean \(U_1\),
+\(U_2\) dos variables aleatorias uniformes independientes sobre
+\((0,1)\). Sean \(\theta=2\pi U_1\) y \(S=-\ln(U_2)\).
+
+(\emph{Pista:} Para la parte \emph{(a)} recuerde que una exponencial es
+un caso especial de una distribución Gamma: de hecho, esto es
+\(\chi_2^2\). Para la parte (b) invierta el procedimiento del esjericio
+12.11).
+
+\emph{Observación:} El ejercicio 12.15 es conocido como el método
+Box-Muller para simular variables aleatorias normales.
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\tightlist
+\item
+  Demuestre que \(S\) tiene distribución exponencial, y que
+  \(R =\sqrt{2S}\) tiene distribución Rayleigh.
+\end{enumerate}
+
+\subsection{\texorpdfstring{\emph{Demostración:}}{Demostración:}}\label{demostracion-2}
+
+\begin{equation}
+S=-\ln(V)\\
+S=h(v)=-\ln(V)\Rightarrow v=e^{-s} \Rightarrow v=h^{-1}(s)=e^{-s}\\
+\left| \frac{dh^{-1}(s)}{ds}  \right|=\left| -e^{-s}  \right|=e^{-s}
+\end{equation}
+
+Como
+
+\begin{equation}
+f_V(v)=1 \quad f_S(s)=f_V(v)\cdot \left| \frac{dv}{ds}  \right|=1\cdot e^{-s}=e^{-s}
+\end{equation}
+
+De tal suerte que puede concluirse que \(S \sim Exp(1)\)
+
+Ahora,
+
+\begin{equation}
+R=\sqrt{2S}=\sqrt{-2\ln(V)}\\
+R=h(v)=\sqrt{-2\ln(V)}
+\end{equation}
+
+Luego,
+
+\begin{equation}
+R = \sqrt{-2\ln(V)}\\
+R^2 = -2\ln(V)\\
+-\frac{R^2}{2}=\ln(V)\\
+V=e^{-\frac{R^2}{2}}
+\end{equation}
+
+Así, \[v=h^{-1}(r)=e^{-\frac{r^2}{2}}\]
+
+De esta forma, \[
+\frac{dv}{dr}=\frac{dh^{-1}(r)}{dr}=-e^{-\frac{r^2}{2}} \cdot r=r \cdot e^{-\frac{r^2}{2}}
+\]
+
+Entonces, \[
+f_R(r)=f_V(v)\cdot \left| \frac{dv}{dr}  \right|=r \cdot e^{-\frac{r^2}{2}}
+\] Que claramente se refiere a una variable aleatoria
+\(R\sim Rayleigh(1)\)
+
+\subsection{\texorpdfstring{\emph{Simulación:}}{Simulación:}}\label{simulacion-2}
+
+Sea \(U_2\) una variable aleatoria con distribución uniforme en
+\((0,1)\)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{163053}\NormalTok{)}
+\NormalTok{U2<-}\KeywordTok{runif}\NormalTok{(}\DecValTok{10000}\NormalTok{)}
+\NormalTok{S<-}\OperatorTok{-}\KeywordTok{log}\NormalTok{(U2)}
+\NormalTok{R<-}\KeywordTok{sqrt}\NormalTok{(}\DecValTok{2}\OperatorTok{*}\NormalTok{S)}
+
+\KeywordTok{hist}\NormalTok{(S,}\DataTypeTok{freq =} \OtherTok{FALSE}\NormalTok{, }\DataTypeTok{main =} \StringTok{"Histograma de S"}\NormalTok{, }\DataTypeTok{xlab=}\StringTok{"S"}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{"Densidad"}\NormalTok{)}
+\KeywordTok{curve}\NormalTok{(}\KeywordTok{dexp}\NormalTok{(x,}\DecValTok{1}\NormalTok{),}\DataTypeTok{add=}\NormalTok{T,}\DataTypeTok{col=}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{notebook_simulaciones_files/figure-latex/unnamed-chunk-10-1.pdf}
+
+Se observa que los datos de \(S\) simulados a partir de una distribución
+uniforme, se ajusta a una distribución exponencial con parámetro 1.
+
+Por otra parte, los datos simulados de \(R\)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{hist}\NormalTok{(R,}\DataTypeTok{freq =} \OtherTok{FALSE}\NormalTok{, }\DataTypeTok{main =} \StringTok{"Histograma de R"}\NormalTok{, }\DataTypeTok{xlab=}\StringTok{"R"}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{"Densidad"}\NormalTok{)}
+\KeywordTok{curve}\NormalTok{(}\KeywordTok{drayleigh}\NormalTok{(x,}\DataTypeTok{scale =} \DecValTok{1}\NormalTok{),}\DataTypeTok{add=}\NormalTok{T,}\DataTypeTok{col=}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{notebook_simulaciones_files/figure-latex/unnamed-chunk-11-1.pdf}
+
+Se observa que los datos de \(R\) simulados a partir de una distribución
+exponencial de parámetro 1, se ajusta a una distribución Rayleigh con
+parámetro 1.\textbackslash{}
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Sean \(X=R \cos\theta\), \(Y=R\sin\theta\). Demuestre que \(X\) y
+  \(Y\) son normales independientes.
+\end{enumerate}
+
+\subsection{\texorpdfstring{\emph{Demostración:}}{Demostración:}}\label{demostracion-3}
+
+Se sabe que \(X=\sqrt{-2\ln(V)}\cos(2\pi U)\) y
+\(Y=\sqrt{-2\ln(V)}\sin(2\pi U)\), así,
+\(g(x,y)=(\sqrt{-2\ln(V)}\cos(2\pi U),\sqrt{-2\ln(V)}\sin(2\pi U))\)
+
+A continuación se calculan la inversa de \(g\):
+
+\begin{equation}
+\frac{Y}{X}=\frac{\sqrt{-2\ln(V)}\cos(2\pi U)}{\sqrt{-2\ln(V)}\sin(2\pi U)}
+=\tan(2 \pi U) \Rightarrow U=\frac{1}{2 \pi}\tan^{-1}\left( \frac{Y}{X}  \right)
+\end{equation}
+
+Por otra parte,
+
+\begin{equation}
+\begin{split}
+X^2+Y^2&=(\sqrt{-2\ln(V)}\cos(2\pi U)^2+(\sqrt{-2\ln(V)}\sin(2\pi U)^2\\
+&= (-2\ln(V)\cos^2(2\pi U))+(-2\ln(V)\sin^2(2\pi U)\\
+&= -2\ln(V)(\cos^2(2\pi U)+\sin^2(2\pi U)\\
+&= -2\ln(V)
+\end{split}
+\end{equation}
+
+Así,
+
+\begin{equation}
+V = e^{-\frac{X^2+Y^2}{2}}
+\end{equation}
+
+De esta forma,
+\(g^{-1}(x,y)= \left(\frac{1}{2 \pi}\tan^{-1}\left( \frac{Y}{X} \right),e^{-\frac{X^2+Y^2}{2}}\right)\)
+
+El cálculo del jacobiano se presenta a continuación:
+
+\begin{equation}
+\begin{split}
+\left| J_{g^{-1}}  \right|
+&=\left| \det 
+\begin{bmatrix} 
+\frac{y}{2\pi(x^2+y^2)} &  -\frac{x}{2\pi(x^2+y^2)} \\
+-x\cdot e^{-\frac{x^2+y^2}{2}} &  -y\cdot e^{-\frac{x^2+y^2}{2}} \\
+\end{bmatrix}  \right|\\
+&=
+\left|
+\frac{-y^2\cdot e^{-\frac{x^2+y^2}{2}}}{2\pi(x^2+y^2)}-
+\frac{-x^2\cdot e^{-\frac{x^2+y^2}{2}}}{2\pi(x^2+y^2)}
+\right|\\
+&=
+\left|
+\frac{-y^2\cdot e^{-\frac{x^2+y^2}{2}}-x^2\cdot e^{-\frac{x^2+y^2}{2}}}{2\pi(x^2+y^2)}
+\right|\\
+&=
+\left|
+\frac{-e^{-\frac{x^2+y^2}{2}}(x^2+y^2)}{2\pi(x^2+y^2)}
+\right|\\
+&=
+\frac{1}{2\pi}e^{-\frac{x^2+y^2}{2}}
+\end{split}
+\end{equation}
+
+De esta forma, la densidad conjunta de \(X\) y \(Y\) es:
+
+\begin{equation}
+f_{X,Y}=\frac{1}{2\pi}e^{-\frac{x^2+y^2}{2}}=\frac{1}{\sqrt{2\pi}}e^{-\frac{x^2}{2}} \cdot \frac{1}{\sqrt{2\pi}}e^{-\frac{y^2}{2}}=f(x)f(y)
+\end{equation}
+
+Lo que demuestra que \(X\) y \(Y\) se distribuyen normales estándar y
+además son independientes.
+
+\subsection{\texorpdfstring{\emph{Simulación:}}{Simulación:}}\label{simulacion-3}
+
+Sea \(R\) una variable aleatoria con distribución Rayleigh y \(U_1\) una
+variable aleatoria uniforme \((0,1)\).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{163053}\NormalTok{)}
+\NormalTok{R<-}\KeywordTok{rrayleigh}\NormalTok{(}\DecValTok{10000}\NormalTok{,}\DecValTok{2}\NormalTok{)}
+\NormalTok{U1<-}\KeywordTok{runif}\NormalTok{(}\DecValTok{10000}\NormalTok{)}
+\NormalTok{Theta<-}\DecValTok{2}\OperatorTok{*}\NormalTok{pi}\OperatorTok{*}\NormalTok{U1}
+
+\NormalTok{X<-R}\OperatorTok{*}\KeywordTok{cos}\NormalTok{(Theta)}
+\NormalTok{Y<-R}\OperatorTok{*}\KeywordTok{sin}\NormalTok{(Theta)}
+
+\KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow=}\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{1}\NormalTok{))}
+\KeywordTok{hist}\NormalTok{(X,}\DataTypeTok{freq =} \OtherTok{FALSE}\NormalTok{, }\DataTypeTok{main =} \StringTok{"Histograma de X"}\NormalTok{, }\DataTypeTok{xlab=}\StringTok{"X"}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{"Densidad"}\NormalTok{)}
+\KeywordTok{curve}\NormalTok{(}\KeywordTok{dnorm}\NormalTok{(x,}\DecValTok{0}\NormalTok{,}\DecValTok{2}\NormalTok{),}\DataTypeTok{add=}\NormalTok{T,}\DataTypeTok{col=}\DecValTok{2}\NormalTok{)}
+\KeywordTok{hist}\NormalTok{(Y,}\DataTypeTok{freq =} \OtherTok{FALSE}\NormalTok{, }\DataTypeTok{main =} \StringTok{"Histograma de Y"}\NormalTok{, }\DataTypeTok{xlab=}\StringTok{"Y"}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{"Densidad"}\NormalTok{)}
+\KeywordTok{curve}\NormalTok{(}\KeywordTok{dnorm}\NormalTok{(x,}\DecValTok{0}\NormalTok{,}\DecValTok{2}\NormalTok{),}\DataTypeTok{add=}\NormalTok{T,}\DataTypeTok{col=}\DecValTok{4}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{notebook_simulaciones_files/figure-latex/unnamed-chunk-12-1.pdf}
+
+Puede observarse que tanto las variables simuladas de \(X\) y \(Y\),
+corresponden a variables normales con media 0 y varianza 4, considerando
+que la distribución de Rayleigh tiene parámetro 2.
+
+
+\end{document}
