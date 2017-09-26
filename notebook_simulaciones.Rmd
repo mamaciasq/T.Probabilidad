@@ -22,7 +22,7 @@ f_{(X, Y)} (x,y) =
 \end{cases}
 $$
 
-Encuentre la distribución de $R=\sqrt{X^2+Y^2}$. (_Pista_: Introduzca una variable aleatoria auxiliar definida como $S=Arctan\left(\frac{Y}{X}\right)$.) [Respuesta: $f_R(r)=2r\mathbb{1}_{0,1}(r)$.]
+Encuentre la distribución de $R=\sqrt{X^2+Y^2}$. (_Pista_: Introduzca una variable aleatoria auxiliar definida como $S=Arctan\left(\frac{Y}{X}\right)$.) [Respuesta: $f_R(r)=2rI_{0,1}(r)$.]
 
 ## *Demostración:*
 
@@ -54,22 +54,24 @@ De esta forma, se tiene que:
 \begin{equation}
 \begin{split}
 f_{Z,W}(z,w)&=r\{ f_{X,Y}(r\cos\theta,r\sin\theta) + f_{X,Y}(-r\cos\theta,-r\sin\theta)  \}
-\mathbb{1}_{(0,1)}(r)\mathbb{1}_{\left(\frac{-\pi}{2},\frac{\pi}{2}\right)}(\theta)\\
-&=r\mathbb{1}_{(0,1)}(r)\left(\frac{1}{\pi}+\frac{1}{\pi}\right)\mathbb{1}_{\left(\frac{-\pi}{2},\frac{\pi}{2}\right)}(\theta)\\
-&=\frac{2r\mathbb{1}_{(0,1)}(r)\mathbb{1}_{\left(\frac{-\pi}{2},\frac{\pi}{2}\right)}(\theta)}{\pi}
+I_{(0,1)}(r)I_{\left(\frac{-\pi}{2},\frac{\pi}{2}\right)}(\theta)\\
+&=rI_{(0,1)}(r)\left(\frac{1}{\pi}+\frac{1}{\pi}\right)I_{\left(\frac{-\pi}{2},\frac{\pi}{2}\right)}(\theta)\\
+&=\frac{2rI_{(0,1)}(r)I_{\left(\frac{-\pi}{2},\frac{\pi}{2}\right)}(\theta)}{\pi}
 \end{split}
 \end{equation}
 
 La densidad marginal sería:
 \begin{equation}
-f_R(r)=\int_{-\frac{\pi}{2}}^{\frac{\pi}{2}}\frac{2r\mathbb{1}_{(0,1)}(r)}{\pi}d\theta=2r\mathbb{1}_{(0,1)}(r)
+f_R(r)=\int_{-\frac{\pi}{2}}^{\frac{\pi}{2}}\frac{2rI_{(0,1)}(r)}{\pi}d\theta=2rI_{(0,1)}(r)
 \end{equation}
+
+\newpage
 
 ## *Simulación:*
 
 Sean $X$ y $Y$ dos variables aleatorias con distribución $U(0,1)$
 
-```{r echo=TRUE,fig=TRUE}
+```{r echo=TRUE,fig=TRUE, out.width = "75%"}
 set.seed(163053)
 X<-runif(10000)
 Y<-runif(10000)
@@ -122,9 +124,9 @@ De esta forma, se tiene que:
 
 \begin{equation}
 \begin{split}
-f_{Z,W}(z,w) \quad &= \quad \left( \frac{1}{2\pi\sigma^2}e^{\frac{-z^2}{2\sigma}}z + \frac{1}{2\pi\sigma^2}e^{\frac{-z^2}{2\sigma}}z \right) \mathbb{1}_{\left(-\frac{\pi}{2},\frac{\pi}{2}\right)}(w) \mathbb{1}_{(0,\infty)}(z)\\
-&=\quad \frac{1}{\pi}\mathbb{1}_{\left(-\frac{\pi}{2},\frac{\pi}{2}\right)}(w)
-\cdot\frac{z}{\sigma^2}e^{\frac{-z^2}{2\sigma}} \mathbb{1}_{(0,\infty)}(z)
+f_{Z,W}(z,w) \quad &= \quad \left( \frac{1}{2\pi\sigma^2}e^{\frac{-z^2}{2\sigma}}z + \frac{1}{2\pi\sigma^2}e^{\frac{-z^2}{2\sigma}}z \right) I_{\left(-\frac{\pi}{2},\frac{\pi}{2}\right)}(w) I_{(0,\infty)}(z)\\
+&=\quad \frac{1}{\pi}I_{\left(-\frac{\pi}{2},\frac{\pi}{2}\right)}(w)
+\cdot\frac{z}{\sigma^2}e^{\frac{-z^2}{2\sigma}} I_{(0,\infty)}(z)
 \end{split}
 \end{equation}
 
@@ -152,7 +154,7 @@ V<-rrayleigh(10000,2)
 
 Al comparar los dos histogramas de los datos simulados a partir de $X$ y $Y$ con los de $Z$:
 
-```{r echo=TRUE,fig=TRUE}
+```{r echo=TRUE,fig=TRUE, out.width = "70%"}
 par(mfrow=c(1,2))
 hist(Z,freq = F,breaks = 10, main = "Histograma de Z", xlab="Z", ylab = "Densidad")
 hist(V,freq = F,breaks = 10, main = "Histograma de V", xlab="V", ylab = "Densidad")
@@ -160,13 +162,14 @@ hist(V,freq = F,breaks = 10, main = "Histograma de V", xlab="V", ylab = "Densida
 
 Puede verse que los dos histogramas son similares, es decir, que tanto los datos simulados ($Z$) a partir de dos normales como los obtenidos ($V$) son equivalentes. Si se comparan con la función de densidad teórica:
 
-```{r echo=TRUE,fig=TRUE}
+```{r echo=TRUE,fig=TRUE, out.width = "75%"}
 rayleigh<-function(x,y){
   (x/y^2)*exp((-x^2)/(2*y^2))
 }
 
 par(mfrow=c(1,1))
-hist(Z,freq = F,breaks = 10,ylim = c(0,0.35), main = "Histograma de Z", xlab="Z", ylab = "Densidad")
+hist(Z,freq = F,breaks = 10,ylim = c(0,0.35), 
+     main = "Histograma de Z", xlab="Z", ylab = "Densidad")
 curve(rayleigh(x,2),from = 0,to = 8,add = T,col=2)
 ```
 
@@ -195,7 +198,7 @@ Z<-runif(10000,-pi/2,pi/2)
 
 Al comparar los dos histogramas de los datos simulados a partir $X$ y $Y$ y los de $Z$:
 
-```{r echo=TRUE,fig=TRUE}
+```{r echo=TRUE,fig=TRUE, out.width = "75%"}
 par(mfrow=c(1,2))
 hist(W,freq = FALSE, main = "Histograma de W", xlab="W", ylab = "Densidad")
 hist(Z,freq = FALSE, main = "Histograma de Z", xlab="Z", ylab = "Densidad")
@@ -203,7 +206,7 @@ hist(Z,freq = FALSE, main = "Histograma de Z", xlab="Z", ylab = "Densidad")
 
 Se observa que los dos histogramas son similares, es decir, que tanto los simulados $W$ a partir de dos normales y los obtenidos $(Z)$ son equivalentes. Al comparar con la función de densidad teórica:
 
-```{r echo=TRUE,fig=TRUE}
+```{r echo=TRUE,fig=TRUE, out.width = "70%"}
 unifor<-function(x,y,z){
   if(x>=y&x<=z){1/(z-y)}
   else{0}
@@ -274,11 +277,13 @@ f_R(r)=f_V(v)\cdot \left| \frac{dv}{dr}  \right|=r \cdot e^{-\frac{r^2}{2}}
 $$
 Que claramente se refiere a una variable aleatoria $R\sim Rayleigh(1)$ 
 
+\newpage
+
 ## *Simulación:*
 
 Sea $U_2$ una variable aleatoria con distribución uniforme en $(0,1)$
 
-```{r echo=TRUE,fig=TRUE}
+```{r echo=TRUE,fig=TRUE, out.width = "63%"}
 set.seed(163053)
 U2<-runif(10000)
 S<--log(U2)
@@ -293,18 +298,21 @@ Se observa que los datos de $S$ simulados a partir de una distribución uniforme
 
 Por otra parte, los datos simulados de $R$
 
-```{r echo=TRUE,fig=TRUE}
+```{r echo=TRUE,fig=TRUE, out.width = "63%"}
 hist(R,freq = FALSE, main = "Histograma de R", xlab="R", ylab = "Densidad")
 curve(drayleigh(x,scale = 1),add=T,col=2)
 ```
 
-Se observa que los datos de $R$ simulados a partir de una distribución exponencial de parámetro 1, se ajusta a una distribución Rayleigh con parámetro 1.\\
+Se observa que los datos de $R$ simulados a partir de una distribución exponencial de parámetro 1, se ajusta a una distribución Rayleigh con parámetro 1.
+
 
 b. Sean $X=R \cos\theta$, $Y=R\sin\theta$. Demuestre que $X$ y $Y$ son normales independientes.
 
 ## *Demostración:*
 
-Se sabe que $X=\sqrt{-2\ln(V)}\cos(2\pi U)$ y $Y=\sqrt{-2\ln(V)}\sin(2\pi U)$, así, $g(x,y)=(\sqrt{-2\ln(V)}\cos(2\pi U),\sqrt{-2\ln(V)}\sin(2\pi U))$
+Se sabe que $X=\sqrt{-2\ln(V)}\cos(2\pi U)$ y $Y=\sqrt{-2\ln(V)}\sin(2\pi U)$. 
+
+Así, $g(x,y)=(\sqrt{-2\ln(V)}\cos(2\pi U),\sqrt{-2\ln(V)}\sin(2\pi U))$
 
 A continuación se calculan la inversa de $g$:
 

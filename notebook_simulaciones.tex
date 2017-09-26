@@ -142,7 +142,7 @@ f_{(X, Y)} (x,y) =
 Encuentre la distribución de \(R=\sqrt{X^2+Y^2}\). (\emph{Pista}:
 Introduzca una variable aleatoria auxiliar definida como
 \(S=Arctan\left(\frac{Y}{X}\right)\).) {[}Respuesta:
-\(f_R(r)=2r\mathbb{1}_{0,1}(r)\).{]}
+\(f_R(r)=2rI_{0,1}(r)\).{]}
 
 \subsection{\texorpdfstring{\emph{Demostración:}}{Demostración:}}\label{demostracion}
 
@@ -180,17 +180,19 @@ De esta forma, se tiene que:
 \begin{equation}
 \begin{split}
 f_{Z,W}(z,w)&=r\{ f_{X,Y}(r\cos\theta,r\sin\theta) + f_{X,Y}(-r\cos\theta,-r\sin\theta)  \}
-\mathbb{1}_{(0,1)}(r)\mathbb{1}_{\left(\frac{-\pi}{2},\frac{\pi}{2}\right)}(\theta)\\
-&=r\mathbb{1}_{(0,1)}(r)\left(\frac{1}{\pi}+\frac{1}{\pi}\right)\mathbb{1}_{\left(\frac{-\pi}{2},\frac{\pi}{2}\right)}(\theta)\\
-&=\frac{2r\mathbb{1}_{(0,1)}(r)\mathbb{1}_{\left(\frac{-\pi}{2},\frac{\pi}{2}\right)}(\theta)}{\pi}
+I_{(0,1)}(r)I_{\left(\frac{-\pi}{2},\frac{\pi}{2}\right)}(\theta)\\
+&=rI_{(0,1)}(r)\left(\frac{1}{\pi}+\frac{1}{\pi}\right)I_{\left(\frac{-\pi}{2},\frac{\pi}{2}\right)}(\theta)\\
+&=\frac{2rI_{(0,1)}(r)I_{\left(\frac{-\pi}{2},\frac{\pi}{2}\right)}(\theta)}{\pi}
 \end{split}
 \end{equation}
 
 La densidad marginal sería:
 
 \begin{equation}
-f_R(r)=\int_{-\frac{\pi}{2}}^{\frac{\pi}{2}}\frac{2r\mathbb{1}_{(0,1)}(r)}{\pi}d\theta=2r\mathbb{1}_{(0,1)}(r)
+f_R(r)=\int_{-\frac{\pi}{2}}^{\frac{\pi}{2}}\frac{2rI_{(0,1)}(r)}{\pi}d\theta=2rI_{(0,1)}(r)
 \end{equation}
+
+\newpage
 
 \subsection{\texorpdfstring{\emph{Simulación:}}{Simulación:}}\label{simulacion}
 
@@ -210,7 +212,7 @@ Sean \(X\) y \(Y\) dos variables aleatorias con distribución \(U(0,1)\)
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{notebook_simulaciones_files/figure-latex/unnamed-chunk-1-1.pdf}
+\includegraphics[width=0.75\linewidth]{notebook_simulaciones_files/figure-latex/unnamed-chunk-1-1}
 
 Gracias a la simulación, es posible que los datos de \(R\) simulados a
 partir de dos variables uniformes, se ajustan a la distribución teórica.
@@ -259,9 +261,9 @@ De esta forma, se tiene que:
 
 \begin{equation}
 \begin{split}
-f_{Z,W}(z,w) \quad &= \quad \left( \frac{1}{2\pi\sigma^2}e^{\frac{-z^2}{2\sigma}}z + \frac{1}{2\pi\sigma^2}e^{\frac{-z^2}{2\sigma}}z \right) \mathbb{1}_{\left(-\frac{\pi}{2},\frac{\pi}{2}\right)}(w) \mathbb{1}_{(0,\infty)}(z)\\
-&=\quad \frac{1}{\pi}\mathbb{1}_{\left(-\frac{\pi}{2},\frac{\pi}{2}\right)}(w)
-\cdot\frac{z}{\sigma^2}e^{\frac{-z^2}{2\sigma}} \mathbb{1}_{(0,\infty)}(z)
+f_{Z,W}(z,w) \quad &= \quad \left( \frac{1}{2\pi\sigma^2}e^{\frac{-z^2}{2\sigma}}z + \frac{1}{2\pi\sigma^2}e^{\frac{-z^2}{2\sigma}}z \right) I_{\left(-\frac{\pi}{2},\frac{\pi}{2}\right)}(w) I_{(0,\infty)}(z)\\
+&=\quad \frac{1}{\pi}I_{\left(-\frac{\pi}{2},\frac{\pi}{2}\right)}(w)
+\cdot\frac{z}{\sigma^2}e^{\frac{-z^2}{2\sigma}} I_{(0,\infty)}(z)
 \end{split}
 \end{equation}
 
@@ -302,7 +304,7 @@ y \(Y\) con los de \(Z\):
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{notebook_simulaciones_files/figure-latex/unnamed-chunk-4-1.pdf}
+\includegraphics[width=0.7\linewidth]{notebook_simulaciones_files/figure-latex/unnamed-chunk-4-1}
 
 Puede verse que los dos histogramas son similares, es decir, que tanto
 los datos simulados (\(Z\)) a partir de dos normales como los obtenidos
@@ -316,12 +318,13 @@ teórica:
 \NormalTok{\}}
 
 \KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow=}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{))}
-\KeywordTok{hist}\NormalTok{(Z,}\DataTypeTok{freq =}\NormalTok{ F,}\DataTypeTok{breaks =} \DecValTok{10}\NormalTok{,}\DataTypeTok{ylim =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\FloatTok{0.35}\NormalTok{), }\DataTypeTok{main =} \StringTok{"Histograma de Z"}\NormalTok{, }\DataTypeTok{xlab=}\StringTok{"Z"}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{"Densidad"}\NormalTok{)}
+\KeywordTok{hist}\NormalTok{(Z,}\DataTypeTok{freq =}\NormalTok{ F,}\DataTypeTok{breaks =} \DecValTok{10}\NormalTok{,}\DataTypeTok{ylim =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\FloatTok{0.35}\NormalTok{), }
+     \DataTypeTok{main =} \StringTok{"Histograma de Z"}\NormalTok{, }\DataTypeTok{xlab=}\StringTok{"Z"}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{"Densidad"}\NormalTok{)}
 \KeywordTok{curve}\NormalTok{(}\KeywordTok{rayleigh}\NormalTok{(x,}\DecValTok{2}\NormalTok{),}\DataTypeTok{from =} \DecValTok{0}\NormalTok{,}\DataTypeTok{to =} \DecValTok{8}\NormalTok{,}\DataTypeTok{add =}\NormalTok{ T,}\DataTypeTok{col=}\DecValTok{2}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{notebook_simulaciones_files/figure-latex/unnamed-chunk-5-1.pdf}
+\includegraphics[width=0.75\linewidth]{notebook_simulaciones_files/figure-latex/unnamed-chunk-5-1}
 
 De esta forma, es posible confirmar que los datos de la distribución
 Rayleigh simulados a partir de dos normales coninciden con la función de
@@ -362,7 +365,7 @@ Al comparar los dos histogramas de los datos simulados a partir \(X\) y
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{notebook_simulaciones_files/figure-latex/unnamed-chunk-8-1.pdf}
+\includegraphics[width=0.75\linewidth]{notebook_simulaciones_files/figure-latex/unnamed-chunk-8-1}
 
 Se observa que los dos histogramas son similares, es decir, que tanto
 los simulados \(W\) a partir de dos normales y los obtenidos \((Z)\) son
@@ -383,7 +386,7 @@ equivalentes. Al comparar con la función de densidad teórica:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{notebook_simulaciones_files/figure-latex/unnamed-chunk-9-1.pdf}
+\includegraphics[width=0.7\linewidth]{notebook_simulaciones_files/figure-latex/unnamed-chunk-9-1}
 
 Se confirma que los datos de la distribución uniforme entre \(-\pi/2\) y
 \(\pi/2\) simulados a partir de dos normales coninciden con la función
@@ -454,6 +457,8 @@ f_R(r)=f_V(v)\cdot \left| \frac{dv}{dr}  \right|=r \cdot e^{-\frac{r^2}{2}}
 \] Que claramente se refiere a una variable aleatoria
 \(R\sim Rayleigh(1)\)
 
+\newpage
+
 \subsection{\texorpdfstring{\emph{Simulación:}}{Simulación:}}\label{simulacion-2}
 
 Sea \(U_2\) una variable aleatoria con distribución uniforme en
@@ -471,7 +476,7 @@ Sea \(U_2\) una variable aleatoria con distribución uniforme en
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{notebook_simulaciones_files/figure-latex/unnamed-chunk-10-1.pdf}
+\includegraphics[width=0.63\linewidth]{notebook_simulaciones_files/figure-latex/unnamed-chunk-10-1}
 
 Se observa que los datos de \(S\) simulados a partir de una distribución
 uniforme, se ajusta a una distribución exponencial con parámetro 1.
@@ -485,11 +490,11 @@ Por otra parte, los datos simulados de \(R\)
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{notebook_simulaciones_files/figure-latex/unnamed-chunk-11-1.pdf}
+\includegraphics[width=0.63\linewidth]{notebook_simulaciones_files/figure-latex/unnamed-chunk-11-1}
 
 Se observa que los datos de \(R\) simulados a partir de una distribución
 exponencial de parámetro 1, se ajusta a una distribución Rayleigh con
-parámetro 1.\textbackslash{}
+parámetro 1.
 
 \begin{enumerate}
 \def\labelenumi{\alph{enumi}.}
@@ -503,7 +508,9 @@ parámetro 1.\textbackslash{}
 \subsection{\texorpdfstring{\emph{Demostración:}}{Demostración:}}\label{demostracion-3}
 
 Se sabe que \(X=\sqrt{-2\ln(V)}\cos(2\pi U)\) y
-\(Y=\sqrt{-2\ln(V)}\sin(2\pi U)\), así,
+\(Y=\sqrt{-2\ln(V)}\sin(2\pi U)\).
+
+Así,
 \(g(x,y)=(\sqrt{-2\ln(V)}\cos(2\pi U),\sqrt{-2\ln(V)}\sin(2\pi U))\)
 
 A continuación se calculan la inversa de \(g\):
