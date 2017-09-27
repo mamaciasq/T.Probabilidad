@@ -175,11 +175,12 @@ r\sin\theta &  -r\cos\theta \\
 =|r|=r
 \end{equation}
 
-De esta forma, se tiene que:
+De esta forma, por el Corolario 12.1 (\emph{Probability Essentials} de
+Jacod \& Protter) se tiene:
 
 \begin{equation}
 \begin{split}
-f_{Z,W}(z,w)&=r\{ f_{X,Y}(r\cos\theta,r\sin\theta) + f_{X,Y}(-r\cos\theta,-r\sin\theta)  \}
+f_{(R,\Theta)}(r,\theta)&=r\{ f_{X,Y}(r\cos\theta,r\sin\theta) + f_{X,Y}(-r\cos\theta,-r\sin\theta)  \}
 I_{(0,1)}(r)I_{\left(\frac{-\pi}{2},\frac{\pi}{2}\right)}(\theta)\\
 &=rI_{(0,1)}(r)\left(\frac{1}{\pi}+\frac{1}{\pi}\right)I_{\left(\frac{-\pi}{2},\frac{\pi}{2}\right)}(\theta)\\
 &=\frac{2rI_{(0,1)}(r)I_{\left(\frac{-\pi}{2},\frac{\pi}{2}\right)}(\theta)}{\pi}
@@ -209,13 +210,16 @@ Sean \(X\) y \(Y\) dos variables aleatorias con distribución \(U(0,1)\)
 
 \KeywordTok{hist}\NormalTok{(R,}\DataTypeTok{freq =}\NormalTok{ F, }\DataTypeTok{main =} \StringTok{"Histograma de R"}\NormalTok{, }\DataTypeTok{xlab=}\StringTok{"R"}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{"Densidad"}\NormalTok{)}
 \KeywordTok{curve}\NormalTok{(}\DecValTok{2}\OperatorTok{*}\NormalTok{x,}\DataTypeTok{from =} \DecValTok{0}\NormalTok{,}\DataTypeTok{to =} \DecValTok{1}\NormalTok{,}\DataTypeTok{col=}\DecValTok{2}\NormalTok{,}\DataTypeTok{add=}\NormalTok{T)}
+\KeywordTok{lines}\NormalTok{(}\KeywordTok{density}\NormalTok{(R))}
 \end{Highlighting}
 \end{Shaded}
 
 \includegraphics[width=0.75\linewidth]{notebook_simulaciones_files/figure-latex/unnamed-chunk-1-1}
 
-Gracias a la simulación, es posible que los datos de \(R\) simulados a
-partir de dos variables uniformes, se ajustan a la distribución teórica.
+Gracias a la simulación, es posible apreciar que los datos de \(R\)
+simulados a partir de dos variables uniformes, se ajustan a la
+distribución teórica. La línea de color rojo es la teórica y la de color
+negro es la de la simulación.
 
 \section{Ejercicio 12.11}\label{ejercicio-12.11}
 
@@ -223,19 +227,21 @@ Sean \((X, Y)\) normales independientes, ambas con media \(\mu=0\) y
 varianza \(\sigma^2\). Sea
 
 \[
-Z = \sqrt{X^2 + Y^2} \quad \text{y}\quad W=Arctan\left(\frac{Y}{X}\right), \quad\quad\quad-\frac{\pi}{2}<W\leq\frac{\pi}{2}.
+Z = \sqrt{X^2 + Y^2} \quad \text{y}\quad W=Arctan\left(\frac{X}{Y}\right), \quad\quad\quad-\frac{\pi}{2}<W\leq\frac{\pi}{2}.
 \] Demuestre que \(Z\) tiene distribución Rayleigh, que \(W\) es
 uniforme sobre \(\left(-\frac{\pi}{2},\frac{\pi}{2} \right)\) y que
 \(Z\) y \(W\) son independientes.
 
+\newpage
+
 \subsection{\texorpdfstring{\emph{Demostración:}}{Demostración:}}\label{demostracion-1}
 
 Sea
-\(g(x,y)=\left(\sqrt{x^2+y^2}\right), \arctan\left(\frac{x}{y}\right)\)
+\(g(x,y)=\left(\sqrt{x^2+y^2}\right), \tan^{-1}\left(\frac{x}{y}\right)\)
 
 En este caso las inversas serían \(g_1^{-1}(z,w)=(z\sin w,z\cos w)\) y
-\(g_2^{-1}(z,w)=(z\sin w,-z\cos w)\) puesto que g no es inyectiva. Sus
-correspondientes jacobianos serían:
+\(g_2^{-1}(z,w)=(z\sin w,-z\cos w)\) puesto que \(g\) no es inyectiva.
+Sus correspondientes jacobianos serían:
 
 \begin{equation}
 \left| J_{g_1^{-1}}  \right|
@@ -244,7 +250,7 @@ correspondientes jacobianos serían:
 \sin w &  z\cos w \\
 \cos w &  -z\sin w \\
 \end{bmatrix}  \right|
-=|z|=z
+=|-z|=z
 \end{equation}
 
 \begin{equation}
@@ -261,11 +267,16 @@ De esta forma, se tiene que:
 
 \begin{equation}
 \begin{split}
-f_{Z,W}(z,w) \quad &= \quad \left( \frac{1}{2\pi\sigma^2}e^{\frac{-z^2}{2\sigma}}z + \frac{1}{2\pi\sigma^2}e^{\frac{-z^2}{2\sigma}}z \right) I_{\left(-\frac{\pi}{2},\frac{\pi}{2}\right)}(w) I_{(0,\infty)}(z)\\
+f_{(Z,W)}(z,w) \quad &= \quad \left( \frac{1}{2\pi\sigma^2}e^{\frac{-z^2}{2\sigma^2}}z + \frac{1}{2\pi\sigma^2}e^{\frac{-z^2}{2\sigma^2}}z \right) I_{\left(-\frac{\pi}{2},\frac{\pi}{2}\right)}(w) I_{(0,\infty)}(z)\\
 &=\quad \frac{1}{\pi}I_{\left(-\frac{\pi}{2},\frac{\pi}{2}\right)}(w)
-\cdot\frac{z}{\sigma^2}e^{\frac{-z^2}{2\sigma}} I_{(0,\infty)}(z)
+\cdot\frac{z}{\sigma^2}e^{\frac{-z^2}{2\sigma^2}} I_{(0,\infty)}(z)
 \end{split}
 \end{equation}
+
+Lo que demuestra que \(Z\) tiene distribución Rayleigh(\(\sigma^2\)),
+\(W\) es uniforme sobre el intervalo
+\(\left( -\frac{\pi}{2},\frac{\pi}{2} \right)\) y que \(Z\) y \(W\) son
+independientes.
 
 \subsection{\texorpdfstring{\emph{Simulación:}}{Simulación:}}\label{simulacion-1}
 
@@ -289,7 +300,7 @@ A continuación se simulan datos de una distribución Rayleigh con
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{V<-}\KeywordTok{rrayleigh}\NormalTok{(}\DecValTok{10000}\NormalTok{,}\DecValTok{2}\NormalTok{)}
+\NormalTok{R<-}\KeywordTok{rrayleigh}\NormalTok{(}\DecValTok{10000}\NormalTok{,}\DecValTok{2}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -300,15 +311,17 @@ y \(Y\) con los de \(Z\):
 \begin{Highlighting}[]
 \KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow=}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))}
 \KeywordTok{hist}\NormalTok{(Z,}\DataTypeTok{freq =}\NormalTok{ F,}\DataTypeTok{breaks =} \DecValTok{10}\NormalTok{, }\DataTypeTok{main =} \StringTok{"Histograma de Z"}\NormalTok{, }\DataTypeTok{xlab=}\StringTok{"Z"}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{"Densidad"}\NormalTok{)}
-\KeywordTok{hist}\NormalTok{(V,}\DataTypeTok{freq =}\NormalTok{ F,}\DataTypeTok{breaks =} \DecValTok{10}\NormalTok{, }\DataTypeTok{main =} \StringTok{"Histograma de V"}\NormalTok{, }\DataTypeTok{xlab=}\StringTok{"V"}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{"Densidad"}\NormalTok{)}
+
+
+\KeywordTok{hist}\NormalTok{(R,}\DataTypeTok{freq =}\NormalTok{ F,}\DataTypeTok{breaks =} \DecValTok{10}\NormalTok{, }\DataTypeTok{main =} \StringTok{"Histograma de R"}\NormalTok{, }\DataTypeTok{xlab=}\StringTok{"R"}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{"Densidad"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.7\linewidth]{notebook_simulaciones_files/figure-latex/unnamed-chunk-4-1}
+\includegraphics[width=0.8\linewidth]{notebook_simulaciones_files/figure-latex/unnamed-chunk-4-1}
 
 Puede verse que los dos histogramas son similares, es decir, que tanto
 los datos simulados (\(Z\)) a partir de dos normales como los obtenidos
-(\(V\)) son equivalentes. Si se comparan con la función de densidad
+(\(R\)) son equivalentes. Si se comparan con la función de densidad
 teórica:
 
 \begin{Shaded}
@@ -321,17 +334,45 @@ teórica:
 \KeywordTok{hist}\NormalTok{(Z,}\DataTypeTok{freq =}\NormalTok{ F,}\DataTypeTok{breaks =} \DecValTok{10}\NormalTok{,}\DataTypeTok{ylim =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\FloatTok{0.35}\NormalTok{), }
      \DataTypeTok{main =} \StringTok{"Histograma de Z"}\NormalTok{, }\DataTypeTok{xlab=}\StringTok{"Z"}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{"Densidad"}\NormalTok{)}
 \KeywordTok{curve}\NormalTok{(}\KeywordTok{rayleigh}\NormalTok{(x,}\DecValTok{2}\NormalTok{),}\DataTypeTok{from =} \DecValTok{0}\NormalTok{,}\DataTypeTok{to =} \DecValTok{8}\NormalTok{,}\DataTypeTok{add =}\NormalTok{ T,}\DataTypeTok{col=}\DecValTok{2}\NormalTok{)}
+\KeywordTok{lines}\NormalTok{(}\KeywordTok{density}\NormalTok{(Z))}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.75\linewidth]{notebook_simulaciones_files/figure-latex/unnamed-chunk-5-1}
+\includegraphics[width=0.8\linewidth]{notebook_simulaciones_files/figure-latex/unnamed-chunk-5-1}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ks.test}\NormalTok{(Z,prayleigh,}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  One-sample Kolmogorov-Smirnov test
+## 
+## data:  Z
+## D = 0.0091383, p-value = 0.3739
+## alternative hypothesis: two-sided
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{test <-}\StringTok{ }\KeywordTok{ks.test}\NormalTok{(Z,prayleigh,}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
 De esta forma, es posible confirmar que los datos de la distribución
 Rayleigh simulados a partir de dos normales coninciden con la función de
-densidad de una distribución Rayleigh.
+densidad de una distribución Rayleigh. La línea de color rojo es la
+teórica y la de color negro es la de la simulación. Igualmente, se
+utiliza el test de Kolmogorov-Smirnov, con un \(\alpha=0.05\) cuya
+hipótesis nula afirma que los datos siguen la distribución deseada, en
+este caso Rayleigh. Como puede verse, el p-valor 0.3739197 permite no
+rechazar la hipótesis nula indicada, de tal suerte que la prueba
+confirma que los datos siguen una distribución Rayleigh.
 
-Ahora, sean \(X\) y \(Y\) dos variables normales independientes con
-media \(\mu=0\) y varianza \(\sigma^2=4\)
+Ahora, sean \(X\) y \(Y\) dos variables aleatorias normales
+independientes con media \(\mu=0\) y varianza \(\sigma^2=4\)
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -388,15 +429,43 @@ equivalentes. Al comparar con la función de densidad teórica:
 
 \includegraphics[width=0.7\linewidth]{notebook_simulaciones_files/figure-latex/unnamed-chunk-9-1}
 
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ks.test}\NormalTok{(W,punif,}\OperatorTok{-}\NormalTok{pi}\OperatorTok{/}\DecValTok{2}\NormalTok{,pi}\OperatorTok{/}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  One-sample Kolmogorov-Smirnov test
+## 
+## data:  W
+## D = 0.012268, p-value = 0.09855
+## alternative hypothesis: two-sided
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{test <-}\StringTok{ }\KeywordTok{ks.test}\NormalTok{(W,punif,}\OperatorTok{-}\NormalTok{pi}\OperatorTok{/}\DecValTok{2}\NormalTok{,pi}\OperatorTok{/}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
 Se confirma que los datos de la distribución uniforme entre \(-\pi/2\) y
 \(\pi/2\) simulados a partir de dos normales coninciden con la función
-de densidad de la una distribución uniforme.
+de densidad de la una distribución uniforme. La línea de color rojo es
+la teórica. Igualmente, se utiliza el test de Kolmogorov-Smirnov, con un
+\(\alpha=0.05\) cuya hipótesis nula afirma que los datos siguen la
+distribución deseada. En este caso, el p-valor 0.0985464 permite no
+rechazar la hipótesis nula indicada y gracias a esta prueba, ratificar
+que los datos siguen distribución uniforme.
+
+\newpage
 
 \section{Ejercicio 12.15}\label{ejercicio-12.15}
 
-(\emph{Simulación de variables aleatorias normales}) Sean \(U_1\),
-\(U_2\) dos variables aleatorias uniformes independientes sobre
-\((0,1)\). Sean \(\theta=2\pi U_1\) y \(S=-\ln(U_2)\).
+(\emph{Simulación de variables aleatorias normales}) Sean \(U\), \(V\)
+dos variables aleatorias uniformes independientes sobre \((0,1)\). Sean
+\(\theta=2\pi U\) y \(S=-\ln(V)\).
 
 (\emph{Pista:} Para la parte \emph{(a)} recuerde que una exponencial es
 un caso especial de una distribución Gamma: de hecho, esto es
@@ -416,16 +485,22 @@ Box-Muller para simular variables aleatorias normales.
 
 \subsection{\texorpdfstring{\emph{Demostración:}}{Demostración:}}\label{demostracion-2}
 
+Sea \(V \sim U(0,1)\) y \(S=-\ln(V)\), luego
+
 \begin{equation}
-S=-\ln(V)\\
-S=h(v)=-\ln(V)\Rightarrow v=e^{-s} \Rightarrow v=h^{-1}(s)=e^{-s}\\
-\left| \frac{dh^{-1}(s)}{ds}  \right|=\left| -e^{-s}  \right|=e^{-s}
+s=g(v)=-\ln(v)\Rightarrow v=h(s)=e^{-s}
+\end{equation}
+
+Así,
+
+\begin{equation}
+|h'(s)|=\left| \frac{dh(s)}{ds}  \right|=\left| -e^{-s}  \right|=e^{-s}
 \end{equation}
 
 Como
 
 \begin{equation}
-f_V(v)=1 \quad f_S(s)=f_V(v)\cdot \left| \frac{dv}{ds}  \right|=1\cdot e^{-s}=e^{-s}
+f_V(v)=1I_{(0,1)} \quad f_S(s)=f_V(e^{-s})\cdot \left| \frac{dv}{ds}  \right|=1\cdot e^{-s}=e^{-s}
 \end{equation}
 
 De tal suerte que puede concluirse que \(S \sim Exp(1)\)
@@ -433,53 +508,83 @@ De tal suerte que puede concluirse que \(S \sim Exp(1)\)
 Ahora,
 
 \begin{equation}
+\begin{split}
 R=\sqrt{2S}=\sqrt{-2\ln(V)}\\
 R=h(v)=\sqrt{-2\ln(V)}
+\end{split}
 \end{equation}
 
 Luego,
 
 \begin{equation}
-R = \sqrt{-2\ln(V)}\\
-R^2 = -2\ln(V)\\
--\frac{R^2}{2}=\ln(V)\\
-V=e^{-\frac{R^2}{2}}
+\begin{split}
+r =g(v)= \sqrt{-2\ln(v)}\\
+r^2 = -2\ln(v)\\
+-\frac{r^2}{2}=\ln(v)\\
+v=h(r)=e^{-\frac{r^2}{2}}
+\end{split}
 \end{equation}
 
-Así, \[v=h^{-1}(r)=e^{-\frac{r^2}{2}}\]
-
 De esta forma, \[
-\frac{dv}{dr}=\frac{dh^{-1}(r)}{dr}=-e^{-\frac{r^2}{2}} \cdot r=r \cdot e^{-\frac{r^2}{2}}
+|h'(s)|=\left| \frac{dh(s)}{ds}  \right|=\left| =-r\cdot e^{-\frac{r^2}{2}}  \right|=r\cdot e^{-\frac{r^2}{2}} 
+\] \newpage
+Entonces,
+
+\[
+f_V(v)=1I_{(0,1)} \quad f_R(r)=f_V(e^{-\frac{r^2}{2}})\cdot \left| \frac{dv}{ds}  \right|=1\cdot r e^{-\frac{r^2}{2}}=r\cdot e^{-\frac{r^2}{2}}
 \]
 
-Entonces, \[
-f_R(r)=f_V(v)\cdot \left| \frac{dv}{dr}  \right|=r \cdot e^{-\frac{r^2}{2}}
-\] Que claramente se refiere a una variable aleatoria
-\(R\sim Rayleigh(1)\)
-
-\newpage
+Que claramente se refiere a una variable aleatoria \(R\sim Rayleigh(1)\)
 
 \subsection{\texorpdfstring{\emph{Simulación:}}{Simulación:}}\label{simulacion-2}
 
-Sea \(U_2\) una variable aleatoria con distribución uniforme en
-\((0,1)\)
+Sea \(V\) una variable aleatoria con distribución uniforme en \((0,1)\)
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{set.seed}\NormalTok{(}\DecValTok{163053}\NormalTok{)}
-\NormalTok{U2<-}\KeywordTok{runif}\NormalTok{(}\DecValTok{10000}\NormalTok{)}
-\NormalTok{S<-}\OperatorTok{-}\KeywordTok{log}\NormalTok{(U2)}
+\NormalTok{V<-}\KeywordTok{runif}\NormalTok{(}\DecValTok{10000}\NormalTok{)}
+\NormalTok{S<-}\OperatorTok{-}\KeywordTok{log}\NormalTok{(V)}
 \NormalTok{R<-}\KeywordTok{sqrt}\NormalTok{(}\DecValTok{2}\OperatorTok{*}\NormalTok{S)}
 
 \KeywordTok{hist}\NormalTok{(S,}\DataTypeTok{freq =} \OtherTok{FALSE}\NormalTok{, }\DataTypeTok{main =} \StringTok{"Histograma de S"}\NormalTok{, }\DataTypeTok{xlab=}\StringTok{"S"}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{"Densidad"}\NormalTok{)}
 \KeywordTok{curve}\NormalTok{(}\KeywordTok{dexp}\NormalTok{(x,}\DecValTok{1}\NormalTok{),}\DataTypeTok{add=}\NormalTok{T,}\DataTypeTok{col=}\DecValTok{2}\NormalTok{)}
+\KeywordTok{lines}\NormalTok{(}\KeywordTok{density}\NormalTok{(S))}
 \end{Highlighting}
 \end{Shaded}
 
 \includegraphics[width=0.63\linewidth]{notebook_simulaciones_files/figure-latex/unnamed-chunk-10-1}
 
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ks.test}\NormalTok{(S,pexp,}\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  One-sample Kolmogorov-Smirnov test
+## 
+## data:  S
+## D = 0.0081251, p-value = 0.5239
+## alternative hypothesis: two-sided
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{test <-}\StringTok{ }\KeywordTok{ks.test}\NormalTok{(S,pexp,}\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
 Se observa que los datos de \(S\) simulados a partir de una distribución
-uniforme, se ajusta a una distribución exponencial con parámetro 1.
+uniforme, se ajusta a una distribución exponencial con parámetro 1. Una
+vez más, se utiliza el test de Kolmogorov-Smirnov, con un
+\(\alpha=0.05\) cuya hipótesis nula afirma que los datos siguen la
+distribución deseada. En este caso, el p-valor 0.5239289 permite no
+rechazar la hipótesis nula indicada y gracias a esta prueba, ratificar
+que los datos siguen distribución exponencial.
+
+\newpage
 
 Por otra parte, los datos simulados de \(R\)
 
@@ -487,14 +592,40 @@ Por otra parte, los datos simulados de \(R\)
 \begin{Highlighting}[]
 \KeywordTok{hist}\NormalTok{(R,}\DataTypeTok{freq =} \OtherTok{FALSE}\NormalTok{, }\DataTypeTok{main =} \StringTok{"Histograma de R"}\NormalTok{, }\DataTypeTok{xlab=}\StringTok{"R"}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{"Densidad"}\NormalTok{)}
 \KeywordTok{curve}\NormalTok{(}\KeywordTok{drayleigh}\NormalTok{(x,}\DataTypeTok{scale =} \DecValTok{1}\NormalTok{),}\DataTypeTok{add=}\NormalTok{T,}\DataTypeTok{col=}\DecValTok{2}\NormalTok{)}
+\KeywordTok{lines}\NormalTok{(}\KeywordTok{density}\NormalTok{(R))}
 \end{Highlighting}
 \end{Shaded}
 
 \includegraphics[width=0.63\linewidth]{notebook_simulaciones_files/figure-latex/unnamed-chunk-11-1}
 
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ks.test}\NormalTok{(R,prayleigh,}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  One-sample Kolmogorov-Smirnov test
+## 
+## data:  R
+## D = 0.47318, p-value < 2.2e-16
+## alternative hypothesis: two-sided
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{test <-}\StringTok{ }\KeywordTok{ks.test}\NormalTok{(R,prayleigh,}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
 Se observa que los datos de \(R\) simulados a partir de una distribución
 exponencial de parámetro 1, se ajusta a una distribución Rayleigh con
-parámetro 1.
+parámetro 1. Una vez más, se utiliza el test de Kolmogorov-Smirnov, con
+un \(\alpha=0.05\) cuya hipótesis nula afirma que los datos siguen la
+distribución deseada. En este caso, el p-valor 0 permite no rechazar la
+hipótesis nula indicada y gracias a esta prueba, ratificar que los datos
+siguen distribución Rayleigh.
 
 \begin{enumerate}
 \def\labelenumi{\alph{enumi}.}
@@ -511,34 +642,34 @@ Se sabe que \(X=\sqrt{-2\ln(V)}\cos(2\pi U)\) y
 \(Y=\sqrt{-2\ln(V)}\sin(2\pi U)\).
 
 Así,
-\(g(x,y)=(\sqrt{-2\ln(V)}\cos(2\pi U),\sqrt{-2\ln(V)}\sin(2\pi U))\)
+\(g(u,v)=(\sqrt{-2\ln(v)}\cos(2\pi u),\sqrt{-2\ln(v)}\sin(2\pi u))\)
 
 A continuación se calculan la inversa de \(g\):
 
 \begin{equation}
-\frac{Y}{X}=\frac{\sqrt{-2\ln(V)}\cos(2\pi U)}{\sqrt{-2\ln(V)}\sin(2\pi U)}
-=\tan(2 \pi U) \Rightarrow U=\frac{1}{2 \pi}\tan^{-1}\left( \frac{Y}{X}  \right)
+\frac{Y}{X}=\frac{\sqrt{-2\ln(v)}\cos(2\pi u)}{\sqrt{-2\ln(v)}\sin(2\pi u)}
+=\tan(2 \pi u) \Rightarrow u=\frac{1}{2 \pi}\tan^{-1}\left( \frac{y}{x}  \right)
 \end{equation}
 
 Por otra parte,
 
 \begin{equation}
 \begin{split}
-X^2+Y^2&=(\sqrt{-2\ln(V)}\cos(2\pi U)^2+(\sqrt{-2\ln(V)}\sin(2\pi U)^2\\
-&= (-2\ln(V)\cos^2(2\pi U))+(-2\ln(V)\sin^2(2\pi U)\\
-&= -2\ln(V)(\cos^2(2\pi U)+\sin^2(2\pi U)\\
-&= -2\ln(V)
+X^2+Y^2&=(\sqrt{-2\ln(v)}\cos(2\pi u)^2+(\sqrt{-2\ln(v)}\sin(2\pi u)^2\\
+&= (-2\ln(v)\cos^2(2\pi u))+(-2\ln(v)\sin^2(2\pi u)\\
+&= -2\ln(v)(\cos^2(2\pi u)+\sin^2(2\pi u)\\
+&= -2\ln(v)
 \end{split}
 \end{equation}
 
 Así,
 
 \begin{equation}
-V = e^{-\frac{X^2+Y^2}{2}}
+v = e^{-\frac{x^2+y^2}{2}}
 \end{equation}
 
 De esta forma,
-\(g^{-1}(x,y)= \left(\frac{1}{2 \pi}\tan^{-1}\left( \frac{Y}{X} \right),e^{-\frac{X^2+Y^2}{2}}\right)\)
+\(g^{-1}(x,y)= \left(\frac{1}{2 \pi}\tan^{-1}\left( \frac{y}{x} \right),e^{-\frac{x^2+y^2}{2}}\right)\)
 
 El cálculo del jacobiano se presenta a continuación:
 
@@ -579,32 +710,69 @@ además son independientes.
 
 \subsection{\texorpdfstring{\emph{Simulación:}}{Simulación:}}\label{simulacion-3}
 
-Sea \(R\) una variable aleatoria con distribución Rayleigh y \(U_1\) una
-variable aleatoria uniforme \((0,1)\).
+Sean \(U\) y \(V\) variables aleatorias uniformes en \((0,1)\)
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{set.seed}\NormalTok{(}\DecValTok{163053}\NormalTok{)}
-\NormalTok{R<-}\KeywordTok{rrayleigh}\NormalTok{(}\DecValTok{10000}\NormalTok{,}\DecValTok{2}\NormalTok{)}
-\NormalTok{U1<-}\KeywordTok{runif}\NormalTok{(}\DecValTok{10000}\NormalTok{)}
-\NormalTok{Theta<-}\DecValTok{2}\OperatorTok{*}\NormalTok{pi}\OperatorTok{*}\NormalTok{U1}
-
-\NormalTok{X<-R}\OperatorTok{*}\KeywordTok{cos}\NormalTok{(Theta)}
-\NormalTok{Y<-R}\OperatorTok{*}\KeywordTok{sin}\NormalTok{(Theta)}
-
-\KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow=}\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{1}\NormalTok{))}
-\KeywordTok{hist}\NormalTok{(X,}\DataTypeTok{freq =} \OtherTok{FALSE}\NormalTok{, }\DataTypeTok{main =} \StringTok{"Histograma de X"}\NormalTok{, }\DataTypeTok{xlab=}\StringTok{"X"}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{"Densidad"}\NormalTok{)}
-\KeywordTok{curve}\NormalTok{(}\KeywordTok{dnorm}\NormalTok{(x,}\DecValTok{0}\NormalTok{,}\DecValTok{2}\NormalTok{),}\DataTypeTok{add=}\NormalTok{T,}\DataTypeTok{col=}\DecValTok{2}\NormalTok{)}
-\KeywordTok{hist}\NormalTok{(Y,}\DataTypeTok{freq =} \OtherTok{FALSE}\NormalTok{, }\DataTypeTok{main =} \StringTok{"Histograma de Y"}\NormalTok{, }\DataTypeTok{xlab=}\StringTok{"Y"}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{"Densidad"}\NormalTok{)}
-\KeywordTok{curve}\NormalTok{(}\KeywordTok{dnorm}\NormalTok{(x,}\DecValTok{0}\NormalTok{,}\DecValTok{2}\NormalTok{),}\DataTypeTok{add=}\NormalTok{T,}\DataTypeTok{col=}\DecValTok{4}\NormalTok{)}
+\NormalTok{n =}\StringTok{ }\DecValTok{200}
+\NormalTok{U=}\KeywordTok{runif}\NormalTok{(n)}
+\NormalTok{V=}\KeywordTok{runif}\NormalTok{(n)}
+\NormalTok{X=}\KeywordTok{sqrt}\NormalTok{(}\OperatorTok{-}\DecValTok{2}\OperatorTok{*}\KeywordTok{log}\NormalTok{(U))}\OperatorTok{*}\KeywordTok{cos}\NormalTok{(}\DecValTok{2}\OperatorTok{*}\NormalTok{pi}\OperatorTok{*}\NormalTok{V)}
+\NormalTok{Y=}\KeywordTok{sqrt}\NormalTok{(}\OperatorTok{-}\DecValTok{2}\OperatorTok{*}\KeywordTok{log}\NormalTok{(V))}\OperatorTok{*}\KeywordTok{cos}\NormalTok{(}\DecValTok{2}\OperatorTok{*}\NormalTok{pi}\OperatorTok{*}\NormalTok{U)}
+\NormalTok{x=}\KeywordTok{seq}\NormalTok{(}\OperatorTok{-}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DataTypeTok{by=}\NormalTok{.}\DecValTok{01}\NormalTok{)}
+\KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow=}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\KeywordTok{hist}\NormalTok{(X,}\DataTypeTok{freq =}\NormalTok{ F);}\KeywordTok{lines}\NormalTok{(x,}\KeywordTok{dnorm}\NormalTok{(x,}\KeywordTok{mean}\NormalTok{(X),}\KeywordTok{sd}\NormalTok{(X)))}
+\KeywordTok{hist}\NormalTok{(Y,}\DataTypeTok{freq =}\NormalTok{ F);}\KeywordTok{lines}\NormalTok{(x,}\KeywordTok{dnorm}\NormalTok{(x,}\KeywordTok{mean}\NormalTok{(Y),}\KeywordTok{sd}\NormalTok{(Y)))}
 \end{Highlighting}
 \end{Shaded}
 
 \includegraphics{notebook_simulaciones_files/figure-latex/unnamed-chunk-12-1.pdf}
 
-Puede observarse que tanto las variables simuladas de \(X\) y \(Y\),
-corresponden a variables normales con media 0 y varianza 4, considerando
-que la distribución de Rayleigh tiene parámetro 2.
+Puede observarse que las variables simuladas de \(X\) y \(Y\),
+corresponden a variables normales con media 0 y varianza 4.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ks.test}\NormalTok{(X,pnorm) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  One-sample Kolmogorov-Smirnov test
+## 
+## data:  X
+## D = 0.034158, p-value = 0.9738
+## alternative hypothesis: two-sided
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{test1 <-}\StringTok{ }\KeywordTok{ks.test}\NormalTok{(X,pnorm)}
+\KeywordTok{ks.test}\NormalTok{(Y,pnorm)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  One-sample Kolmogorov-Smirnov test
+## 
+## data:  Y
+## D = 0.049467, p-value = 0.712
+## alternative hypothesis: two-sided
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{test2 <-}\StringTok{ }\KeywordTok{ks.test}\NormalTok{(Y,pnorm)}
+\end{Highlighting}
+\end{Shaded}
+
+Se utiliza el test de Kolmogorov-Smirnov, con un \(\alpha=0.05\) cuya
+hipótesis nula afirma que los datos siguen la distribución deseada. En
+este caso, los p-valores 0.9737566 y 0.7119575 permiten no rechazar la
+hipótesis nula indicada y gracias a esta prueba, ratificar que los datos
+siguen distribución Normal para cada una de las variables \(X\) y \(Y\).
 
 
 \end{document}

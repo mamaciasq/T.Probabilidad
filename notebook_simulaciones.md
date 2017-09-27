@@ -14,7 +14,7 @@ f_{(X, Y)} (x,y) =
 \end{cases}
 $$
 
-Encuentre la distribución de $R=\sqrt{X^2+Y^2}$. (_Pista_: Introduzca una variable aleatoria auxiliar definida como $S=Arctan\left(\frac{Y}{X}\right)$.) [Respuesta: $f_R(r)=2r\mathbb{1}_{0,1}(r)$.]
+Encuentre la distribución de $R=\sqrt{X^2+Y^2}$. (_Pista_: Introduzca una variable aleatoria auxiliar definida como $S=Arctan\left(\frac{Y}{X}\right)$.) [Respuesta: $f_R(r)=2rI_{0,1}(r)$.]
 
 ## *Demostración:*
 
@@ -41,21 +41,23 @@ r\sin\theta &  -r\cos\theta \\
 =|r|=r
 \end{equation}
 
-De esta forma, se tiene que:
+De esta forma, por el Corolario 12.1 (*Probability Essentials* de Jacod & Protter) se tiene:
 
 \begin{equation}
 \begin{split}
-f_{Z,W}(z,w)&=r\{ f_{X,Y}(r\cos\theta,r\sin\theta) + f_{X,Y}(-r\cos\theta,-r\sin\theta)  \}
-\mathbb{1}_{(0,1)}(r)\mathbb{1}_{\left(\frac{-\pi}{2},\frac{\pi}{2}\right)}(\theta)\\
-&=r\mathbb{1}_{(0,1)}(r)\left(\frac{1}{\pi}+\frac{1}{\pi}\right)\mathbb{1}_{\left(\frac{-\pi}{2},\frac{\pi}{2}\right)}(\theta)\\
-&=\frac{2r\mathbb{1}_{(0,1)}(r)\mathbb{1}_{\left(\frac{-\pi}{2},\frac{\pi}{2}\right)}(\theta)}{\pi}
+f_{(R,\Theta)}(r,\theta)&=r\{ f_{X,Y}(r\cos\theta,r\sin\theta) + f_{X,Y}(-r\cos\theta,-r\sin\theta)  \}
+I_{(0,1)}(r)I_{\left(\frac{-\pi}{2},\frac{\pi}{2}\right)}(\theta)\\
+&=rI_{(0,1)}(r)\left(\frac{1}{\pi}+\frac{1}{\pi}\right)I_{\left(\frac{-\pi}{2},\frac{\pi}{2}\right)}(\theta)\\
+&=\frac{2rI_{(0,1)}(r)I_{\left(\frac{-\pi}{2},\frac{\pi}{2}\right)}(\theta)}{\pi}
 \end{split}
 \end{equation}
 
 La densidad marginal sería:
 \begin{equation}
-f_R(r)=\int_{-\frac{\pi}{2}}^{\frac{\pi}{2}}\frac{2r\mathbb{1}_{(0,1)}(r)}{\pi}d\theta=2r\mathbb{1}_{(0,1)}(r)
+f_R(r)=\int_{-\frac{\pi}{2}}^{\frac{\pi}{2}}\frac{2rI_{(0,1)}(r)}{\pi}d\theta=2rI_{(0,1)}(r)
 \end{equation}
+
+\newpage
 
 ## *Simulación:*
 
@@ -72,11 +74,12 @@ R<-R[R<=1]
 
 hist(R,freq = F, main = "Histograma de R", xlab="R", ylab = "Densidad")
 curve(2*x,from = 0,to = 1,col=2,add=T)
+lines(density(R))
 ```
 
-![](notebook_simulaciones_files/figure-html/unnamed-chunk-1-1.png)<!-- -->
+<img src="notebook_simulaciones_files/figure-html/unnamed-chunk-1-1.png" width="75%" />
 
-Gracias a la simulación, es posible que los datos de $R$ simulados a partir de dos variables uniformes, se ajustan a la distribución teórica.
+Gracias a la simulación, es posible apreciar que los datos de $R$ simulados a partir de dos variables uniformes, se ajustan a la distribución teórica. La línea de color rojo es la teórica y la de color negro es la de la simulación.
 
 
 # Ejercicio 12.11
@@ -84,14 +87,16 @@ Gracias a la simulación, es posible que los datos de $R$ simulados a partir de 
 Sean $(X, Y)$ normales independientes, ambas con media $\mu=0$ y varianza $\sigma^2$. Sea
 
 $$
-Z = \sqrt{X^2 + Y^2} \quad \text{y}\quad W=Arctan\left(\frac{Y}{X}\right), \quad\quad\quad-\frac{\pi}{2}<W\leq\frac{\pi}{2}.
+Z = \sqrt{X^2 + Y^2} \quad \text{y}\quad W=Arctan\left(\frac{X}{Y}\right), \quad\quad\quad-\frac{\pi}{2}<W\leq\frac{\pi}{2}.
 $$
 Demuestre que $Z$ tiene distribución Rayleigh, que $W$ es uniforme sobre $\left(-\frac{\pi}{2},\frac{\pi}{2} \right)$ y que $Z$ y $W$ son independientes.
 
-## *Demostración:*
-Sea $g(x,y)=\left(\sqrt{x^2+y^2}\right), \arctan\left(\frac{x}{y}\right)$
+\newpage
 
-En este caso las inversas serían $g_1^{-1}(z,w)=(z\sin w,z\cos w)$ y $g_2^{-1}(z,w)=(z\sin w,-z\cos w)$ puesto que g no es inyectiva. Sus correspondientes jacobianos serían:
+## *Demostración:*
+Sea $g(x,y)=\left(\sqrt{x^2+y^2}\right), \tan^{-1}\left(\frac{x}{y}\right)$
+
+En este caso las inversas serían $g_1^{-1}(z,w)=(z\sin w,z\cos w)$ y $g_2^{-1}(z,w)=(z\sin w,-z\cos w)$ puesto que $g$ no es inyectiva. Sus correspondientes jacobianos serían:
 
 \begin{equation}
 \left| J_{g_1^{-1}}  \right|
@@ -100,7 +105,7 @@ En este caso las inversas serían $g_1^{-1}(z,w)=(z\sin w,z\cos w)$ y $g_2^{-1}(
 \sin w &  z\cos w \\
 \cos w &  -z\sin w \\
 \end{bmatrix}  \right|
-=|z|=z
+=|-z|=z
 \end{equation}
 
 \begin{equation}
@@ -117,17 +122,17 @@ De esta forma, se tiene que:
 
 \begin{equation}
 \begin{split}
-f_{Z,W}(z,w) \quad &= \quad \left( \frac{1}{2\pi\sigma^2}e^{\frac{-z^2}{2\sigma}}z + \frac{1}{2\pi\sigma^2}e^{\frac{-z^2}{2\sigma}}z \right) \mathbb{1}_{\left(-\frac{\pi}{2},\frac{\pi}{2}\right)}(w) \mathbb{1}_{(0,\infty)}(z)\\
-
-&=\quad \frac{1}{\pi}\mathbb{1}_{\left(-\frac{\pi}{2},\frac{\pi}{2}\right)}(w)
-\cdot\frac{z}{\sigma^2}e^{\frac{-z^2}{2\sigma}} \mathbb{1}_{(0,\infty)}(z)
-\renewcommand{\qedsymbol}{\rule{0.7em}{0.7em}}
+f_{(Z,W)}(z,w) \quad &= \quad \left( \frac{1}{2\pi\sigma^2}e^{\frac{-z^2}{2\sigma^2}}z + \frac{1}{2\pi\sigma^2}e^{\frac{-z^2}{2\sigma^2}}z \right) I_{\left(-\frac{\pi}{2},\frac{\pi}{2}\right)}(w) I_{(0,\infty)}(z)\\
+&=\quad \frac{1}{\pi}I_{\left(-\frac{\pi}{2},\frac{\pi}{2}\right)}(w)
+\cdot\frac{z}{\sigma^2}e^{\frac{-z^2}{2\sigma^2}} I_{(0,\infty)}(z)
 \end{split}
 \end{equation}
 
+Lo que demuestra que $Z$ tiene distribución Rayleigh($\sigma^2$), $W$ es uniforme sobre el intervalo $\left(  -\frac{\pi}{2},\frac{\pi}{2} \right)$ y que $Z$ y $W$ son independientes.
+
 ## *Simulación:*
 
-Sean $X$ y $Y$ dos variables aleatorias independientes con distribución normal con media $\mu$0 y varianza $\sigma^2=4$
+Sean $X$ y $Y$ dos variables aleatorias independientes con distribución normal con media $\mu=0$ y varianza $\sigma^2=4$
 
 
 ```r
@@ -145,7 +150,7 @@ A continuación se simulan datos de una distribución Rayleigh con $\sigma=2$:
 
 
 ```r
-V<-rrayleigh(10000,2)
+R<-rrayleigh(10000,2)
 ```
 
 Al comparar los dos histogramas de los datos simulados a partir de $X$ y $Y$ con los de $Z$:
@@ -154,12 +159,14 @@ Al comparar los dos histogramas de los datos simulados a partir de $X$ y $Y$ con
 ```r
 par(mfrow=c(1,2))
 hist(Z,freq = F,breaks = 10, main = "Histograma de Z", xlab="Z", ylab = "Densidad")
-hist(V,freq = F,breaks = 10, main = "Histograma de V", xlab="V", ylab = "Densidad")
+
+
+hist(R,freq = F,breaks = 10, main = "Histograma de R", xlab="R", ylab = "Densidad")
 ```
 
-![](notebook_simulaciones_files/figure-html/unnamed-chunk-4-1.png)<!-- -->
+<img src="notebook_simulaciones_files/figure-html/unnamed-chunk-4-1.png" width="80%" />
 
-Puede verse que los dos histogramas son similares, es decir, que tanto los datos simulados ($Z$) a partir de dos normales como los obtenidos ($V$) son equivalentes. Si se comparan con la función de densidad teórica:
+Puede verse que los dos histogramas son similares, es decir, que tanto los datos simulados ($Z$) a partir de dos normales como los obtenidos ($R$) son equivalentes. Si se comparan con la función de densidad teórica:
 
 
 ```r
@@ -168,16 +175,35 @@ rayleigh<-function(x,y){
 }
 
 par(mfrow=c(1,1))
-hist(Z,freq = F,breaks = 10,ylim = c(0,0.35), main = "Histograma de Z", xlab="Z", ylab = "Densidad")
+hist(Z,freq = F,breaks = 10,ylim = c(0,0.35), 
+     main = "Histograma de Z", xlab="Z", ylab = "Densidad")
 curve(rayleigh(x,2),from = 0,to = 8,add = T,col=2)
+lines(density(Z))
 ```
 
-![](notebook_simulaciones_files/figure-html/unnamed-chunk-5-1.png)<!-- -->
+<img src="notebook_simulaciones_files/figure-html/unnamed-chunk-5-1.png" width="80%" />
+
+```r
+ks.test(Z,prayleigh,2)
+```
+
+```
+## 
+## 	One-sample Kolmogorov-Smirnov test
+## 
+## data:  Z
+## D = 0.0091383, p-value = 0.3739
+## alternative hypothesis: two-sided
+```
+
+```r
+test <- ks.test(Z,prayleigh,2)
+```
 
 
-De esta forma, es posible confirmar que los datos de la distribución Rayleigh simulados a partir de dos normales coninciden con la función de densidad de una distribución Rayleigh.
+De esta forma, es posible confirmar que los datos de la distribución Rayleigh simulados a partir de dos normales coninciden con la función de densidad de una distribución Rayleigh. La línea de color rojo es la teórica y la de color negro es la de la simulación. Igualmente, se utiliza el test de Kolmogorov-Smirnov, con un $\alpha=0.05$ cuya hipótesis nula afirma que los datos siguen la distribución deseada, en este caso Rayleigh. Como puede verse, el p-valor 0.3739197 permite no rechazar la hipótesis nula indicada, de tal suerte que la prueba confirma que los datos siguen una distribución Rayleigh.
 
-Ahora, sean $X$ y $Y$ dos variables normales independientes con media $\mu=0$ y varianza $\sigma^2=4$
+Ahora, sean $X$ y $Y$ dos variables aleatorias normales independientes con media $\mu=0$ y varianza $\sigma^2=4$
 
 
 ```r
@@ -207,7 +233,7 @@ hist(W,freq = FALSE, main = "Histograma de W", xlab="W", ylab = "Densidad")
 hist(Z,freq = FALSE, main = "Histograma de Z", xlab="Z", ylab = "Densidad")
 ```
 
-![](notebook_simulaciones_files/figure-html/unnamed-chunk-8-1.png)<!-- -->
+<img src="notebook_simulaciones_files/figure-html/unnamed-chunk-8-1.png" width="75%" />
 
 Se observa que los dos histogramas son similares, es decir, que tanto los simulados $W$ a partir de dos normales y los obtenidos $(Z)$ son equivalentes. Al comparar con la función de densidad teórica:
 
@@ -225,13 +251,32 @@ hist(W,freq = FALSE, main = "Histograma de W", xlab="W", ylab = "Densidad")
 curve(unif(x,-pi/2,pi/2),add = T,col=2)
 ```
 
-![](notebook_simulaciones_files/figure-html/unnamed-chunk-9-1.png)<!-- -->
+<img src="notebook_simulaciones_files/figure-html/unnamed-chunk-9-1.png" width="70%" />
 
-Se confirma que los datos de la distribución uniforme entre $-\pi/2$ y $\pi/2$ simulados a partir de dos normales coninciden con la función de densidad de la una distribución uniforme.
+```r
+ks.test(W,punif,-pi/2,pi/2)
+```
+
+```
+## 
+## 	One-sample Kolmogorov-Smirnov test
+## 
+## data:  W
+## D = 0.012268, p-value = 0.09855
+## alternative hypothesis: two-sided
+```
+
+```r
+test <- ks.test(W,punif,-pi/2,pi/2)
+```
+
+Se confirma que los datos de la distribución uniforme entre $-\pi/2$ y $\pi/2$ simulados a partir de dos normales coninciden con la función de densidad de la una distribución uniforme. La línea de color rojo es la teórica. Igualmente, se utiliza el test de Kolmogorov-Smirnov, con un $\alpha=0.05$ cuya hipótesis nula afirma que los datos siguen la distribución deseada. En este caso, el p-valor 0.0985464 permite no rechazar la hipótesis nula indicada y gracias a esta prueba, ratificar que los datos siguen distribución uniforme.
+
+\newpage
 
 # Ejercicio 12.15 
 
-(_Simulación de variables aleatorias normales_) Sean $U_1$, $U_2$ dos variables aleatorias uniformes independientes sobre $(0,1)$. Sean $\theta=2\pi U_1$ y $S=-\ln(U_2)$.
+(_Simulación de variables aleatorias normales_) Sean $U$, $V$ dos variables aleatorias uniformes independientes sobre $(0,1)$. Sean $\theta=2\pi U$ y $S=-\ln(V)$.
 
 (_Pista:_ Para la parte _(a)_ recuerde que una exponencial es un caso especial de una distribución Gamma: de hecho, esto es $\chi_2^2$. Para la parte (b) invierta el procedimiento del esjericio 12.11).
 
@@ -241,15 +286,21 @@ a. Demuestre que $S$ tiene distribución exponencial, y que $R =\sqrt{2S}$ tiene
 
 ## *Demostración:*
 
+Sea $V \sim U(0,1)$ y $S=-\ln(V)$, luego
+
 \begin{equation}
-S=-\ln(V)\\
-S=h(v)=-\ln(V)\Rightarrow v=e^{-s} \Rightarrow v=h^{-1}(s)=e^{-s}\\
-\left| \frac{dh^{-1}(s)}{ds}  \right|=\left| -e^{-s}  \right|=e^{-s}
+s=g(v)=-\ln(v)\Rightarrow v=h(s)=e^{-s}
+\end{equation}
+
+Así,
+
+\begin{equation}
+|h'(s)|=\left| \frac{dh(s)}{ds}  \right|=\left| -e^{-s}  \right|=e^{-s}
 \end{equation}
 
 Como
 \begin{equation}
-f_V(v)=1 \quad f_S(s)=f_V(v)\cdot \left| \frac{dv}{ds}  \right|=1\cdot e^{-s}=e^{-s}
+f_V(v)=1I_{(0,1)} \quad f_S(s)=f_V(e^{-s})\cdot \left| \frac{dv}{ds}  \right|=1\cdot e^{-s}=e^{-s}
 \end{equation}
 
 De tal suerte que puede concluirse que $S \sim Exp(1)$
@@ -257,95 +308,139 @@ De tal suerte que puede concluirse que $S \sim Exp(1)$
 Ahora,
 
 \begin{equation}
+\begin{split}
 R=\sqrt{2S}=\sqrt{-2\ln(V)}\\
 R=h(v)=\sqrt{-2\ln(V)}
+\end{split}
 \end{equation}
 
 Luego,
 
 \begin{equation}
-R = \sqrt{-2\ln(V)}\\
-R^2 = -2\ln(V)\\
--\frac{R^2}{2}=\ln(V)\\
-V=e^{-\frac{R^2}{2}}
+\begin{split}
+r =g(v)= \sqrt{-2\ln(v)}\\
+r^2 = -2\ln(v)\\
+-\frac{r^2}{2}=\ln(v)\\
+v=h(r)=e^{-\frac{r^2}{2}}
+\end{split}
 \end{equation}
-
-Así,
-$$v=h^{-1}(r)=e^{-\frac{r^2}{2}}$$
 
 De esta forma,
 $$
-\frac{dv}{dr}=\frac{dh^{-1}(r)}{dr}=-e^{-\frac{r^2}{2}} \cdot r=r \cdot e^{-\frac{r^2}{2}}
+|h'(s)|=\left| \frac{dh(s)}{ds}  \right|=\left| =-r\cdot e^{-\frac{r^2}{2}}  \right|=r\cdot e^{-\frac{r^2}{2}} 
+$$
+\newpage
+Entonces,
+
+$$
+f_V(v)=1I_{(0,1)} \quad f_R(r)=f_V(e^{-\frac{r^2}{2}})\cdot \left| \frac{dv}{ds}  \right|=1\cdot r e^{-\frac{r^2}{2}}=r\cdot e^{-\frac{r^2}{2}}
 $$
 
-Entonces,
-$$
-f_R(r)=f_V(v)\cdot \left| \frac{dv}{dr}  \right|=r \cdot e^{-\frac{r^2}{2}}
-$$
 Que claramente se refiere a una variable aleatoria $R\sim Rayleigh(1)$ 
+
 
 ## *Simulación:*
 
-Sea $U_2$ una variable aleatoria con distribución uniforme en $(0,1)$
+Sea $V$ una variable aleatoria con distribución uniforme en $(0,1)$
 
 
 ```r
 set.seed(163053)
-U2<-runif(10000)
-S<--log(U2)
+V<-runif(10000)
+S<--log(V)
 R<-sqrt(2*S)
 
 hist(S,freq = FALSE, main = "Histograma de S", xlab="S", ylab = "Densidad")
 curve(dexp(x,1),add=T,col=2)
+lines(density(S))
 ```
 
-![](notebook_simulaciones_files/figure-html/unnamed-chunk-10-1.png)<!-- -->
+<img src="notebook_simulaciones_files/figure-html/unnamed-chunk-10-1.png" width="63%" />
 
-Se observa que los datos de $S$ simulados a partir de una distribución uniforme, se ajusta a una distribución exponencial con parámetro 1. 
+```r
+ks.test(S,pexp,1)
+```
 
+```
+## 
+## 	One-sample Kolmogorov-Smirnov test
+## 
+## data:  S
+## D = 0.0081251, p-value = 0.5239
+## alternative hypothesis: two-sided
+```
+
+```r
+test <- ks.test(S,pexp,1)
+```
+
+Se observa que los datos de $S$ simulados a partir de una distribución uniforme, se ajusta a una distribución exponencial con parámetro 1. Una vez más, se utiliza el test de Kolmogorov-Smirnov, con un $\alpha=0.05$ cuya hipótesis nula afirma que los datos siguen la distribución deseada. En este caso, el p-valor 0.5239289 permite no rechazar la hipótesis nula indicada y gracias a esta prueba, ratificar que los datos siguen distribución exponencial.
+
+\newpage
 Por otra parte, los datos simulados de $R$
 
 
 ```r
 hist(R,freq = FALSE, main = "Histograma de R", xlab="R", ylab = "Densidad")
 curve(drayleigh(x,scale = 1),add=T,col=2)
+lines(density(R))
 ```
 
-![](notebook_simulaciones_files/figure-html/unnamed-chunk-11-1.png)<!-- -->
+<img src="notebook_simulaciones_files/figure-html/unnamed-chunk-11-1.png" width="63%" />
 
-Se observa que los datos de $R$ simulados a partir de una distribución exponencial de parámetro 1, se ajusta a una distribución Rayleigh con parámetro 1.\\
+```r
+ks.test(R,prayleigh,2)
+```
+
+```
+## 
+## 	One-sample Kolmogorov-Smirnov test
+## 
+## data:  R
+## D = 0.47318, p-value < 2.2e-16
+## alternative hypothesis: two-sided
+```
+
+```r
+test <- ks.test(R,prayleigh,2)
+```
+
+Se observa que los datos de $R$ simulados a partir de una distribución exponencial de parámetro 1, se ajusta a una distribución Rayleigh con parámetro 1. Una vez más, se utiliza el test de Kolmogorov-Smirnov, con un $\alpha=0.05$ cuya hipótesis nula afirma que los datos siguen la distribución deseada. En este caso, el p-valor 0 permite no rechazar la hipótesis nula indicada y gracias a esta prueba, ratificar que los datos siguen distribución Rayleigh.
+
 
 b. Sean $X=R \cos\theta$, $Y=R\sin\theta$. Demuestre que $X$ y $Y$ son normales independientes.
 
 ## *Demostración:*
 
-Se sabe que $X=\sqrt{-2\ln(V)}\cos(2\pi U)$ y $Y=\sqrt{-2\ln(V)}\sin(2\pi U)$, así, $g(x,y)=(\sqrt{-2\ln(V)}\cos(2\pi U),\sqrt{-2\ln(V)}\sin(2\pi U))$
+Se sabe que $X=\sqrt{-2\ln(V)}\cos(2\pi U)$ y $Y=\sqrt{-2\ln(V)}\sin(2\pi U)$. 
+
+Así, $g(u,v)=(\sqrt{-2\ln(v)}\cos(2\pi u),\sqrt{-2\ln(v)}\sin(2\pi u))$
 
 A continuación se calculan la inversa de $g$:
 
 \begin{equation}
-\frac{Y}{X}=\frac{\sqrt{-2\ln(V)}\cos(2\pi U)}{\sqrt{-2\ln(V)}\sin(2\pi U)}
-=\tan(2 \pi U) \Rightarrow U=\frac{1}{2 \pi}\tan^{-1}\left( \frac{Y}{X}  \right)
+\frac{Y}{X}=\frac{\sqrt{-2\ln(v)}\cos(2\pi u)}{\sqrt{-2\ln(v)}\sin(2\pi u)}
+=\tan(2 \pi u) \Rightarrow u=\frac{1}{2 \pi}\tan^{-1}\left( \frac{y}{x}  \right)
 \end{equation}
 
 Por otra parte,
 
 \begin{equation}
 \begin{split}
-X^2+Y^2&=(\sqrt{-2\ln(V)}\cos(2\pi U)^2+(\sqrt{-2\ln(V)}\sin(2\pi U)^2
-&= (-2\ln(V)\cos^2(2\pi U))+(-2\ln(V)\sin^2(2\pi U)
-&= -2\ln(V)(\cos^2(2\pi U)+\sin^2(2\pi U)
-&= -2\ln(V)
+X^2+Y^2&=(\sqrt{-2\ln(v)}\cos(2\pi u)^2+(\sqrt{-2\ln(v)}\sin(2\pi u)^2\\
+&= (-2\ln(v)\cos^2(2\pi u))+(-2\ln(v)\sin^2(2\pi u)\\
+&= -2\ln(v)(\cos^2(2\pi u)+\sin^2(2\pi u)\\
+&= -2\ln(v)
 \end{split}
 \end{equation}
 
 Así, 
 
 \begin{equation}
-V = e^{-\frac{X^2+Y^2}{2}}
+v = e^{-\frac{x^2+y^2}{2}}
 \end{equation}
 
-De esta forma, $g^{-1}(x,y)= \left(\frac{1}{2 \pi}\tan^{-1}\left( \frac{Y}{X}  \right),e^{-\frac{X^2+Y^2}{2}}\right)$
+De esta forma, $g^{-1}(x,y)= \left(\frac{1}{2 \pi}\tan^{-1}\left( \frac{y}{x}  \right),e^{-\frac{x^2+y^2}{2}}\right)$
 
 El cálculo del jacobiano se presenta a continuación:
 
@@ -385,25 +480,57 @@ Lo que demuestra que $X$ y $Y$ se distribuyen normales estándar y además son i
 
 ## *Simulación:*
 
-Sea $R$ una variable aleatoria con distribución Rayleigh y $U_1$ una variable aleatoria uniforme $(0,1)$.
+Sean $U$ y $V$ variables aleatorias uniformes en $(0,1)$
 
 
 ```r
-set.seed(163053)
-R<-rrayleigh(10000,2)
-U1<-runif(10000)
-Theta<-2*pi*U1
-
-X<-R*cos(Theta)
-Y<-R*sin(Theta)
-
-par(mfrow=c(2,1))
-hist(X,freq = FALSE, main = "Histograma de X", xlab="X", ylab = "Densidad")
-curve(dnorm(x,0,2),add=T,col=2)
-hist(Y,freq = FALSE, main = "Histograma de Y", xlab="Y", ylab = "Densidad")
-curve(dnorm(x,0,2),add=T,col=4)
+n = 200
+U=runif(n)
+V=runif(n)
+X=sqrt(-2*log(U))*cos(2*pi*V)
+Y=sqrt(-2*log(V))*cos(2*pi*U)
+x=seq(-3,3,by=.01)
+par(mfrow=c(1,2))
+hist(X,freq = F);lines(x,dnorm(x,mean(X),sd(X)))
+hist(Y,freq = F);lines(x,dnorm(x,mean(Y),sd(Y)))
 ```
 
 ![](notebook_simulaciones_files/figure-html/unnamed-chunk-12-1.png)<!-- -->
 
-Puede observarse que tanto las variables simuladas de $X$ y $Y$, corresponden a variables normales con media 0 y varianza 4, considerando que la distribución de Rayleigh tiene parámetro 2.
+
+Puede observarse que las variables simuladas de $X$ y $Y$, corresponden a variables normales con media 0 y varianza 4.
+
+
+
+```r
+ks.test(X,pnorm) 
+```
+
+```
+## 
+## 	One-sample Kolmogorov-Smirnov test
+## 
+## data:  X
+## D = 0.034158, p-value = 0.9738
+## alternative hypothesis: two-sided
+```
+
+```r
+test1 <- ks.test(X,pnorm)
+ks.test(Y,pnorm)
+```
+
+```
+## 
+## 	One-sample Kolmogorov-Smirnov test
+## 
+## data:  Y
+## D = 0.049467, p-value = 0.712
+## alternative hypothesis: two-sided
+```
+
+```r
+test2 <- ks.test(Y,pnorm)
+```
+
+Se utiliza el test de Kolmogorov-Smirnov, con un $\alpha=0.05$ cuya hipótesis nula afirma que los datos siguen la distribución deseada. En este caso, los p-valores 0.9737566 y 0.7119575 permiten no rechazar la hipótesis nula indicada y gracias a esta prueba, ratificar que los datos siguen distribución Normal para cada una de las variables $X$ y $Y$.
